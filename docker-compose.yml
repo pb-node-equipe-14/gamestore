@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  node_api:
+  container_name: "express_api"
+  build: .
+  env_file:
+    - .env
+  ports:
+    - $PORT:$PORT
+  volumes:
+    - .:/app
+    - /app/node_modules
+  depends_on:
+    docker_db:
+      condition: service_healthy
+  command: bash -c "yarn typeorm migration:run -d src/data-source && yarn dev"
+
+  docker_db:
+    container_name: postgres_db
+    image: postgres:14
+    env_file:
+      - .env
+    ports:
+      -$PGPORT:$PGPORT
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready --username=$POSTGRES_USER --dbname=$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5s
+      start_period: 5s
