@@ -1,3 +1,5 @@
+import { Category } from "../category"
+
 export interface IGamesrequest{
     name:string
     price:number
@@ -5,5 +7,5 @@ export interface IGamesrequest{
     launch:Date
     description:string
     developer:string
-    id_category:null
+    id_category:Category
 };
