@@ -11,7 +11,7 @@ import {
 import { PaymentInfo } from './payment.entity';
 
 @Entity('users')
-export class User {
+class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -44,3 +44,5 @@ export class User {
   @JoinColumn()
   paymentInfo: PaymentInfo;
 }
+
+export { User };
