@@ -5,6 +5,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Game_purchased } from './games_purchased.entity';
 import { User } from './user.entity';
 
 @Entity('purchased')
