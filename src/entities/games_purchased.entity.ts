@@ -2,10 +2,9 @@ import {
   Entity,
   ManyToOne,
 } from 'typeorm';
-import { User } from './user.entity';
 
-@Entity('purchased')
-export class Purchased {
+@Entity('games_purchased')
+export class Game_purchased {
 
   //relação de manyToOne com Games
   @ManyToOne(() => Games, { eager: true })
