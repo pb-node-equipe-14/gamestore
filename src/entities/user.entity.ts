@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Cart } from './cart.entity';
 import { Favorite } from './favorite.entity';
 import { PaymentInfo } from './payment.entity';
 
@@ -48,6 +49,10 @@ class User {
   @OneToOne(() => Favorite, { eager: true })
   @JoinColumn()
   favorite: Favorite;
+
+  @OneToOne(() => Cart, { eager: true })
+  @JoinColumn()
+  cart: Cart;
 }
 
 export { User };
