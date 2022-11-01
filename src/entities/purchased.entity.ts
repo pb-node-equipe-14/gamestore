@@ -1,11 +1,12 @@
 import {
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Game_purchased } from './games_purchased.entity';
+import { Game } from './games.entity';
 import { User } from './user.entity';
 
 @Entity('purchased')
@@ -20,9 +21,11 @@ export class Purchased {
   @ManyToOne(() => User)
   user: User  
   
-  //relação de oneToMany com game_purchased
-  @OneToMany(() => Game_purchased, games_purchased => games_purchased.purchased )
-  games_purchased: Game_purchased[]
+  @ManyToMany((type) => Game, {
+    eager: true,
+  })
+  @JoinTable()
+  products: Game[];
 
 }
 
