@@ -17,7 +17,7 @@ class Games{
     age:number
 
     @Column({nullable:false})
-    launch:Date
+    launch: Date
 
     @Column()
     description:string

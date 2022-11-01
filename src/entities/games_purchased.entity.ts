@@ -2,6 +2,8 @@ import {
   Entity,
   ManyToOne,
 } from 'typeorm';
+import { Games } from './games.entity';
+import { Purchased } from './purchased.entity';
 
 @Entity('games_purchased')
 export class Game_purchased {
