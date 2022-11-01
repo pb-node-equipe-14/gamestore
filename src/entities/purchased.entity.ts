@@ -1,15 +1,16 @@
 import {
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Game_purchased } from './games_purchased.entity';
+import { Game } from './games.entity';
 import { User } from './user.entity';
 
 @Entity('purchased')
-class Purchased {
+export class Purchased {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -18,11 +19,12 @@ class Purchased {
 
   //relação de manyToOne com users
   @ManyToOne(() => User)
-  user: User;
-
-  //relação de oneToMany com game_purchased
-  @OneToMany(() => Game_purchased, games_purchased => games_purchased.purchased)
-  games_purchased: Game_purchased[];
+  user: User  
+  
+  @ManyToMany((type) => Game, {
+    eager: true,
+  })
+  @JoinTable()
+  products: Game[];
 }
 
-export { Purchased };
