@@ -3,10 +3,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { PaymentInfo } from './payment.entity';
 
 @Entity('users')
 export class User {
@@ -38,6 +40,7 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  /*   @OneToOne(() => Payment_Info, {eager: true})
-  payment_info: Payment_Info */
+  @OneToOne(() => PaymentInfo, { eager: true })
+  @JoinColumn()
+  paymentInfo: PaymentInfo;
 }
