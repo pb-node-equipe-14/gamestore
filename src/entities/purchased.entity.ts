@@ -9,7 +9,7 @@ import { Game_purchased } from './games_purchased.entity';
 import { User } from './user.entity';
 
 @Entity('purchased')
-export class Purchased {
+class Purchased {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -18,12 +18,11 @@ export class Purchased {
 
   //relação de manyToOne com users
   @ManyToOne(() => User)
-  user: User  
-  
-  //relação de oneToMany com game_purchased
-  @OneToMany(() => Game_purchased, games_purchased => games_purchased.purchased )
-  games_purchased: Game_purchased[]
+  user: User;
 
+  //relação de oneToMany com game_purchased
+  @OneToMany(() => Game_purchased, games_purchased => games_purchased.purchased)
+  games_purchased: Game_purchased[];
 }
 
-
+export { Purchased };
