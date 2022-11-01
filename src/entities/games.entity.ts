@@ -1,13 +1,13 @@
-import { Column, Entity,ManyToOne, PrimaryGeneratedColumn } from "typeorm"
-import { Categories } from "./categories.entity"
+import { Column, CreateDateColumn, Entity,ManyToOne, PrimaryGeneratedColumn } from "typeorm"
+import { Category } from "./categories.entity"
 
 
-@Entity()
-class Games{
+@Entity('games')
+class Game{
     @PrimaryGeneratedColumn('uuid')
     id:string
 
-    @Column({nullable:false})
+    @Column({ unique: true })
     name:string
 
     @Column({type: "decimal",precision:12,scale:2})
@@ -16,8 +16,8 @@ class Games{
     @Column()
     age:number
 
-    @Column({nullable:false})
-    launch: Date
+    @CreateDateColumn({ type: 'date' })
+    launch: string
 
     @Column()
     description:string
@@ -25,21 +25,7 @@ class Games{
     @Column()
     developer:string
 
-    @ManyToOne(()=> Categories) 
-    id_category:Categories
+    @ManyToOne(()=> Category)
+    id_category:Category
 }
-
-export {Games}
-
-
-
-
-
-
-
-
-
-
-
-
-
+export { Game }
