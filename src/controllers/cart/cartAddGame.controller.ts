@@ -1,9 +1,7 @@
-import { Request,Response } from "express";
-import cartAddGameService from "../../services/cart/cartAddGame.service";
+import { Request, Response } from 'express';
+import cartAddGameService from '../../services/cart/cartAddGame.service';
 
-
-const cartAddGameController = async (req: Request, res: Response)=>{
-
+const cartAddGameController = async (req: Request, res: Response) => {
   //esse paramentro vamos user_id..
   const { userEmail } = req;
 
@@ -12,7 +10,6 @@ const cartAddGameController = async (req: Request, res: Response)=>{
 
   const cartAdd = await cartAddGameService(product_id, userEmail);
 
-  return res.status(201).json(cartAdd)
-
-;}
+  return res.status(201).json(cartAdd);
+};
 export default cartAddGameController;
