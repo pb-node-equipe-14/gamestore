@@ -18,7 +18,7 @@ const createPaymentInfoService = async (
     code,
   });
 
-  // await userRepository.update(id, { paymentInfo: paymentInfo });
+  await userRepository.update(id, { paymentInfo: paymentInfo });
 
   return paymentInfo;
 };
