@@ -42,7 +42,7 @@ class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToOne(() => PaymentInfo)
+  @OneToOne(() => PaymentInfo, {eager: true})
   @JoinColumn()
   paymentInfo: PaymentInfo;
 

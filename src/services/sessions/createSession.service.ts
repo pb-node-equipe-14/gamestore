@@ -27,7 +27,7 @@ const createSessionService = async ({ password, email }: IUserLogin) => {
     String(process.env.SECRET_KEY),
     { expiresIn: '24h', subject: users.id },
   );
-
+    
   return token;
 };
 
