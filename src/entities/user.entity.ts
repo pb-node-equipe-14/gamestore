@@ -42,17 +42,17 @@ class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToOne(() => PaymentInfo, { eager: true })
+  @OneToOne(() => PaymentInfo)
   @JoinColumn()
   @Exclude()
   paymentInfo: PaymentInfo;
 
-  @OneToOne(() => Favorite, { eager: true })
+  @OneToOne(() => Favorite)
   @JoinColumn()
   @Exclude()
   favorite: Favorite;
 
-  @OneToOne(() => Cart, { eager: true })
+  @OneToOne(() => Cart)
   @JoinColumn()
   @Exclude()
   cart: Cart;

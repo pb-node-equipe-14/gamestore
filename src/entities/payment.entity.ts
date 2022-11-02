@@ -2,7 +2,6 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  CreateDateColumn,
 } from 'typeorm';
 
 @Entity('payment_infos')
@@ -16,7 +15,7 @@ class PaymentInfo {
   @Column({ length: 120 })
   number: string;
 
-  @CreateDateColumn({ type: 'date' })
+  @Column({ type: 'date' })
   dueDate: Date;
 
   @Column({ length: 3 })
