@@ -1,31 +1,39 @@
-import { Column, CreateDateColumn, Entity,ManyToOne, PrimaryGeneratedColumn } from "typeorm"
-import { Category } from "./categories.entity"
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Category } from './categories.entity';
 
+@Entity('games')
+class Game {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-@Entity("games")
-class Game{
-    @PrimaryGeneratedColumn("uuid")
-    id: string
+  @Column({ unique: true })
+  name: string;
 
-    @Column({ unique: true })
-    name: string
+  @Column({ type: 'decimal', precision: 12, scale: 2 })
+  price: number;
 
-    @Column({ type: "decimal", precision: 12, scale: 2 })
-    price: number
+  @Column()
+  age: number;
 
-    @Column()
-    age: number
+  @CreateDateColumn({ type: 'date' })
+  launch: string;
 
-    @CreateDateColumn({ type: "date" })
-    launch: string
+  @Column()
+  description: string;
 
-    @Column()
-    description: string
+  @Column()
+  developer: string;
 
-    @Column()
-    developer: string
+  @Column()
+  image: string;
 
-    @ManyToOne(()=> Category)
-    id_category: Category
+  // @ManyToOne(()=> Category)
+  // id_category: Category
 }
-export { Game }
+export { Game };
