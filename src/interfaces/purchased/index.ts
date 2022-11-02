@@ -1,4 +1,4 @@
-export interface IBuyRequest {
+export interface IPurchasedRequest {
   name: string;
   email: string;
   password: string;
