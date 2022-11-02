@@ -6,7 +6,6 @@ import { listGamesActiveController } from '../controllers/games/listAllGames.con
 import { listOneGamesControllers } from '../controllers/games/listOneGames.controller';
 import { UpdateGamesControllers } from '../controllers/games/updateGames.controller';
 import { verifyAuthUserMiddleware } from '../middlewares/verifyAuthUser.middleware';
-import { verifyGameIsActiveMiddleware } from '../middlewares/verifyGameIsActive.middleware';
 
 const routes = Router();
 // caso o usuário seja admistrador, ele consegue listar todos os jogos
