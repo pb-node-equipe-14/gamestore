@@ -8,6 +8,7 @@ declare global {
         id: string;
         isAdm: boolean;
       };
+      newUser: IUserRequest;
     }
   }
 }
