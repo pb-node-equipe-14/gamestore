@@ -4,12 +4,12 @@ import { User } from '../../entities/user.entity';
 import { AppError } from '../../errors/appError';
 import { fixedFloat } from '../../utils';
 
-const cartDelGameService = async (userEmail: string, product_id) => {
+const cartDelGameService = async (user_id: string, game_id: string) => {
   const userRepository = AppDataSource.getRepository(User);
 
   const user = await userRepository.findOne({
     where: {
-      email: userEmail,
+      id: user_id,
     },
   });
 
@@ -22,11 +22,11 @@ const cartDelGameService = async (userEmail: string, product_id) => {
   });
 
   if (cart) {
-    if (cart.games.filter(game => game.id === product_id).length === 0) {
+    if (cart.games.filter(game => game.id === game_id).length === 0) {
       throw new AppError('Product is not in the cart', 404);
     }
 
-    cart.games = cart.games.filter(game => game.id !== product_id);
+    cart.games = cart.games.filter(game => game.id !== game_id);
     cart.subtotal = fixedFloat(
       cart.games.reduce((acc, game) => acc + game.price, 0),
     );

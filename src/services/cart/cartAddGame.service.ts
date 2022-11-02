@@ -5,15 +5,14 @@ import { User } from '../../entities/user.entity';
 import { AppError } from '../../errors/appError';
 import { fixedFloat } from '../../utils';
 
-const cartAddGameService = async (product_id: string, userEmail: string) => {
+const cartAddGameService = async (user_id: string, gamee_id: string, ) => {
   const userRepository = AppDataSource.getRepository(User);
   const gameRepository = AppDataSource.getRepository(Game);
   const cartRepository = AppDataSource.getRepository(Cart);
 
-  //verificar se userEmail é como está na entity
   const user = await userRepository.findOne({
     where: {
-      email: userEmail, //receber do controller
+      id: user_id, 
     },
   });
 
@@ -25,7 +24,7 @@ const cartAddGameService = async (product_id: string, userEmail: string) => {
 
   const gameToAdd = await gameRepository.findOne({
     where: {
-      id: product_id, //receber do controller
+      id: gamee_id, 
     },
   });
 
@@ -33,14 +32,12 @@ const cartAddGameService = async (product_id: string, userEmail: string) => {
     throw new AppError('Product not found', 404);
   }
 
-  //verifica se cart e gameToAdd existir entra nesse if
   if (cart && gameToAdd) {
     if (cart.games.filter(game => game.name === gameToAdd.name).length > 0) {
       throw new AppError('Game is already in the cart', 409);
     }
 
     cart.games = [];
-    //importar a untils para fazer o fixedFloat funcionar...
     cart.subtotal = fixedFloat(cart.subtotal + gameToAdd.price);
 
     await cartRepository.save(cart);

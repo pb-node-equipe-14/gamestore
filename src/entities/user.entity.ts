@@ -42,6 +42,7 @@ class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
+  //remover o eager true ja que vamos dar o @Exclude;
   @OneToOne(() => PaymentInfo, { eager: true })
   @JoinColumn()
   @Exclude()
