@@ -1,25 +1,38 @@
-import { IUserLogin, IUserRequest } from '../../interfaces/users';
+import {
+  IUserLogin,
+  IUserRequest,
+  IUserRequestTest,
+} from '../../interfaces/users';
 
 export const mockedUser: IUserRequest = {
-  name: 'Joana',
-  email: 'joana@mail.com',
+  name: 'User',
+  email: 'user@mail.com',
+  age: 25,
   isAdm: false,
-  password: '123456',
+  password: '123',
+};
+
+export const mockedUserWithoutPassword: IUserRequestTest = {
+  name: 'User',
+  email: 'user@mail.com',
+  age: 25,
+  isAdm: false,
 };
 
 export const mockedAdmin: IUserRequest = {
-  name: 'Felipe',
-  email: 'felipe@mail.com',
+  name: 'User 2',
+  email: 'user2@mail.com',
+  age: 28,
   isAdm: true,
-  password: '123456',
+  password: '123',
 };
 
 export const mockedUserLogin: IUserLogin = {
-  email: 'joana@mail.com',
-  password: '123456',
+  email: 'user@mail.com',
+  password: '123',
 };
 
 export const mockedAdminLogin: IUserLogin = {
-  email: 'felipe@mail.com',
-  password: '123456',
+  email: 'user2@mail.com',
+  password: '123',
 };
