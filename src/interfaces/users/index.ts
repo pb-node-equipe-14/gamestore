@@ -3,6 +3,15 @@ export interface IUserRequest {
   email: string;
   password: string;
   isAdm: boolean;
+  age: number;
+}
+
+export interface IUserRequestTest {
+  name: string;
+  email: string;
+  password?: string;
+  isAdm: boolean;
+  age: number;
 }
 
 export interface IUser {
@@ -23,4 +32,5 @@ export interface IUserUpdate {
   name?: string;
   email?: string;
   password?: string;
+  age?: number;
 }

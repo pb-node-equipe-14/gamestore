@@ -4,7 +4,7 @@ import { purchasedRoutes } from './purchased.routes';
 import { userRoutes } from './users.routes';
 
 export const appRoutes = (app: Express) => {
-  app.use('', userRoutes());
+  app.use('/users', userRoutes());
   app.use('/purchased', purchasedRoutes());
   app.use('/cart', cartRoutes());
 };
