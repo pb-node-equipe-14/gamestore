@@ -7,7 +7,7 @@ import 'dotenv/config';
     console.error('Error during Data Source initialization', err);
   });
 
-  app.listen(4000, () => {
-    console.log('Servidor executando na porta 4000');
+  app.listen(3000, () => {
+    console.log('Servidor executando ', 3000);
   });
 })();
