@@ -7,9 +7,10 @@ import {
   mockedAdminLogin,
   mockedUser,
   mockedUserLogin,
+  mockedUserWithoutPassword,
 } from '../../mocks';
 
-describe('/users', () => {
+describe('Users', () => {
   let connection: DataSource;
 
   beforeAll(async () => {
@@ -32,13 +33,14 @@ describe('/users', () => {
     expect(response.body).toHaveProperty('id');
     expect(response.body).toHaveProperty('name');
     expect(response.body).toHaveProperty('email');
+    expect(response.body).toHaveProperty('age');
     expect(response.body).toHaveProperty('isAdm');
     expect(response.body).toHaveProperty('isActive');
     expect(response.body).toHaveProperty('createdAt');
     expect(response.body).toHaveProperty('updatedAt');
     expect(response.body).not.toHaveProperty('password');
-    expect(response.body.name).toEqual('Joana');
-    expect(response.body.email).toEqual('joana@mail.com');
+    expect(response.body.name).toEqual('User');
+    expect(response.body.email).toEqual('user@mail.com');
     expect(response.body.isAdm).toEqual(false);
     expect(response.body.isActive).toEqual(true);
     expect(response.status).toBe(201);
@@ -48,6 +50,17 @@ describe('/users', () => {
     const response = await request(app).post('/users').send(mockedUser);
 
     expect(response.body).toHaveProperty('message');
+    expect(response.status).toBe(400);
+  });
+
+  test('POST /users -  should not be able to create a user with missing fields', async () => {
+    const response = await request(app)
+      .post('/users')
+      .send(mockedUserWithoutPassword);
+
+    expect(response.body).toMatchObject({
+      message: 'password is a required field',
+    });
     expect(response.status).toBe(400);
   });
 
@@ -82,92 +95,54 @@ describe('/users', () => {
     expect(response.status).toBe(403);
   });
 
-  test('DELETE /users/:id -  should not be able to delete user without authentication', async () => {
-    const adminLoginResponse = await request(app)
-      .post('/login')
-      .send(mockedAdminLogin);
-    const UserTobeDeleted = await request(app)
+  test('GET/ users - should not be able to list users with invalid authentication', async () => {
+    const response = await request(app)
       .get('/users')
-      .set('Authorization', `Bearer ${adminLoginResponse.body.token}`);
+      .set('Authorization', `Bearer ${123}`);
+    expect(response.body).toHaveProperty('message');
+    expect(response.status).toBe(401);
+  });
 
-    const response = await request(app).delete(
-      `/users/${UserTobeDeleted.body[0].id}`,
-    );
+  test('GET/ users/:id - Must be able to list one user', async () => {
+    const user = await request(app).get('/users');
+    const response = await request(app).get(`/users/${user.body[0].id}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('id');
+    expect(response.body).toHaveProperty('name');
+    expect(response.body).toHaveProperty('age');
+    expect(response.body).toHaveProperty('email');
+    expect(response.body).toHaveProperty('isAdm');
+    expect(response.body).toHaveProperty('isActive');
+    expect(response.body).toHaveProperty('createdAt');
+    expect(response.body).toHaveProperty('updatedAt');
+    expect(response.body).not.toHaveProperty('password');
+    expect(response.body).not.toHaveProperty('paymentInfo');
+    expect(response.body).not.toHaveProperty('favorite');
+    expect(response.body).not.toHaveProperty('cart');
+  });
+
+  test('GET/ users/:id - should not be able to list an user without authentication', async () => {
+    const user = await request(app).get('/users');
+    const response = await request(app).get(`/users/${user.body[0].id}`);
 
     expect(response.body).toHaveProperty('message');
     expect(response.status).toBe(401);
   });
 
-  test('DELETE /users/:id -  should not be able to delete user not being admin', async () => {
-    const userLoginResponse = await request(app)
-      .post('/login')
-      .send(mockedUserLogin);
+  test('GET/ users/:id - should not be able to list an user with invalid id', async () => {
     const adminLoginResponse = await request(app)
       .post('/login')
       .send(mockedAdminLogin);
-    const UserTobeDeleted = await request(app)
-      .get('/users')
-      .set('Authorization', `Bearer ${adminLoginResponse.body.token}`);
-
     const response = await request(app)
-      .delete(`/users/${UserTobeDeleted.body[0].id}`)
-      .set('Authorization', `Bearer ${userLoginResponse.body.token}`);
+      .get(`/users/b855d86b-d4c9-41cd-ab98-d7fa734c6ce4`)
+      .set('Authorization', `Bearer ${adminLoginResponse.body.token}`);
 
     expect(response.body).toHaveProperty('message');
-    expect(response.status).toBe(403);
-  });
-
-  test('DELETE /users/:id -  Must be able to soft delete user', async () => {
-    await request(app).post('/users').send(mockedAdmin);
-
-    const adminLoginResponse = await request(app)
-      .post('/login')
-      .send(mockedAdminLogin);
-    const UserTobeDeleted = await request(app)
-      .get('/users')
-      .set('Authorization', `Bearer ${adminLoginResponse.body.token}`);
-
-    const response = await request(app)
-      .delete(`/users/${UserTobeDeleted.body[0].id}`)
-      .set('Authorization', `Bearer ${adminLoginResponse.body.token}`);
-    const findUser = await request(app)
-      .get('/users')
-      .set('Authorization', `Bearer ${adminLoginResponse.body.token}`);
-    expect(response.status).toBe(204);
-    expect(findUser.body[0].isActive).toBe(false);
-  });
-
-  test("DELETE /users/:id -  shouldn't be able to delete user with isActive = false", async () => {
-    await request(app).post('/users').send(mockedAdmin);
-
-    const adminLoginResponse = await request(app)
-      .post('/login')
-      .send(mockedAdminLogin);
-    const UserTobeDeleted = await request(app)
-      .get('/users')
-      .set('Authorization', `Bearer ${adminLoginResponse.body.token}`);
-
-    const response = await request(app)
-      .delete(`/users/${UserTobeDeleted.body[0].id}`)
-      .set('Authorization', `Bearer ${adminLoginResponse.body.token}`);
-    expect(response.status).toBe(400);
-    expect(response.body).toHaveProperty('message');
-  });
-
-  test('DELETE -  should not be able to delete user with invalid id', async () => {
-    await request(app).post('/users').send(mockedAdmin);
-
-    const adminLoginResponse = await request(app)
-      .post('/login')
-      .send(mockedAdminLogin);
-
-    const response = await request(app)
-      .delete(`/users/13970660-5dbe-423a-9a9d-5c23b37943cf`)
-      .set('Authorization', `Bearer ${adminLoginResponse.body.token}`);
     expect(response.status).toBe(404);
-    expect(response.body).toHaveProperty('message');
   });
 
+  // TESTAR TODAS AS ROTAS A PARTIR DAQUI, ROTAS ACIMA JÁ FORAM TESTADAS
   test('PATCH /users/:id -  should not be able to update user without authentication', async () => {
     const adminLoginResponse = await request(app)
       .post('/login')
@@ -296,7 +271,7 @@ describe('/users', () => {
   });
 
   test('PATCH /users/:id -  should be able to update user', async () => {
-    const newValues = { name: 'Joana Brito', email: 'joanabrito@mail.com' };
+    const newValues = { name: 'Roberto', email: 'roberto@mail.com' };
 
     const admingLoginResponse = await request(app)
       .post('/login')
@@ -318,7 +293,74 @@ describe('/users', () => {
       .set('Authorization', token);
 
     expect(response.status).toBe(200);
-    expect(userUpdated.body[0].name).toEqual('Joana Brito');
+    expect(userUpdated.body[0].name).toEqual('Roberto');
     expect(userUpdated.body[0]).not.toHaveProperty('password');
+  });
+
+  test('DELETE /users/:id -  should not be able to delete user without authentication', async () => {
+    const adminLoginResponse = await request(app)
+      .post('/login')
+      .send(mockedAdminLogin);
+    const UserTobeDeleted = await request(app)
+      .get('/users')
+      .set('Authorization', `Bearer ${adminLoginResponse.body.token}`);
+
+    const response = await request(app).delete(
+      `/users/${UserTobeDeleted.body[0].id}`,
+    );
+
+    expect(response.body).toHaveProperty('message');
+    expect(response.status).toBe(401);
+  });
+
+  test('DELETE /users/:id -  Must be able to soft delete user', async () => {
+    await request(app).post('/users').send(mockedAdmin);
+
+    const adminLoginResponse = await request(app)
+      .post('/login')
+      .send(mockedAdminLogin);
+    const UserTobeDeleted = await request(app)
+      .get('/users')
+      .set('Authorization', `Bearer ${adminLoginResponse.body.token}`);
+
+    const response = await request(app)
+      .delete(`/users/${UserTobeDeleted.body[0].id}`)
+      .set('Authorization', `Bearer ${adminLoginResponse.body.token}`);
+    const findUser = await request(app)
+      .get('/users')
+      .set('Authorization', `Bearer ${adminLoginResponse.body.token}`);
+    expect(response.status).toBe(204);
+    expect(findUser.body[0].isActive).toBe(false);
+  });
+
+  test("DELETE /users/:id -  shouldn't be able to delete user with isActive = false", async () => {
+    await request(app).post('/users').send(mockedAdmin);
+
+    const adminLoginResponse = await request(app)
+      .post('/login')
+      .send(mockedAdminLogin);
+    const UserTobeDeleted = await request(app)
+      .get('/users')
+      .set('Authorization', `Bearer ${adminLoginResponse.body.token}`);
+
+    const response = await request(app)
+      .delete(`/users/${UserTobeDeleted.body[0].id}`)
+      .set('Authorization', `Bearer ${adminLoginResponse.body.token}`);
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty('message');
+  });
+
+  test('DELETE -  should not be able to delete user with invalid id', async () => {
+    await request(app).post('/users').send(mockedAdmin);
+
+    const adminLoginResponse = await request(app)
+      .post('/login')
+      .send(mockedAdminLogin);
+
+    const response = await request(app)
+      .delete(`/users/13970660-5dbe-423a-9a9d-5c23b37943cf`)
+      .set('Authorization', `Bearer ${adminLoginResponse.body.token}`);
+    expect(response.status).toBe(404);
+    expect(response.body).toHaveProperty('message');
   });
 });
