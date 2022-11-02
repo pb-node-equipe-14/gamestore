@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
-import { AppError } from '../../errors/appError';
-import cartDelGameService from '../../services/cart/cartDelGame.service';
+
+import cartDelGameService from '../../services/cart/cartDelGame.service'; 
 
 const cartDelGameController = async (req: Request, res: Response) => {
-  const { userEmail } = req;
-  const { product_id } = req.params;
+  const user_id = req.user.id;
+  const { game_id } = req.params;
 
-  const cartDel = cartDelGameController(userEmail, product_id);
+  const cartDel = await cartDelGameService(game_id, user_id);
 
   return res.sendStatus(204);
 };
