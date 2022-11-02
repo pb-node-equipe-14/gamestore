@@ -1,14 +1,18 @@
-# node-pb-equipe14
+#
 
 <h2 align ='start'> API </h2>
 
 URL heroku
 
+#
+
 <h1 align ='center'> Criar usuário </h1>
 
-### Essa rota precisa passar obrigatoriamente um "name, email, password e isAdm". O isAdm servirá para criação de jogos pois apenas usuários administradores conseguirão criar novos jogos
-
 `POST /user`
+
+#
+
+### Essa rota precisa passar obrigatoriamente um "name, email, password e isAdm". O isAdm servirá para criação de jogos pois apenas usuários administradores conseguirão criar novos jogos
 
 ```json
 {
@@ -64,6 +68,8 @@ Caso não tenha preenchido o "name", email, age, password ou isAdm
 <h1 align ='center'> Login usuário </h1>
 
 `POST /login`
+
+#
 
 ```json
 {
@@ -146,7 +152,7 @@ Caso dê tudo certo, a resposta será assim:
     "isAdm": false,
     "isActive": true,
     "createdAt": "2022-10-31T19:24:54.115Z",
-    "updatedAt": "2022-10-31T19:38:30.496Z"
+    "updatedAt": "2022-10-31T19:24:54.115Z"
   },
   {
     "id": "d1e411ea-5b7e-470c-b8fd-3497e30a1298",
@@ -156,7 +162,7 @@ Caso dê tudo certo, a resposta será assim:
     "isAdm": false,
     "isActive": false,
     "createdAt": "2022-10-31T19:38:59.511Z",
-    "updatedAt": "2022-10-31T19:39:27.580Z"
+    "updatedAt": "2022-10-31T19:40:15.554Z"
   }
 ]
 ```
@@ -173,7 +179,7 @@ Caso o usuário não seja administrador
 }
 ```
 
-Caso o usuário não seja administrador
+Caso não passe o token no campo "Authorization"
 
 ` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
 
@@ -183,10 +189,185 @@ Caso o usuário não seja administrador
 }
 ```
 
+Caso o token esteja errado
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Invalid Token"
+}
+```
+
+#
+
+<h1 align ='center'> Listar um usuário </h1>
+
+`GET /users/:id`
+
+#
+
+## Essa rota necessita de autenticação
+
+Rotas que necessitam de autenticação devem ser informado no cabeçalho da requisição o campo "Authorization", dessa forma:
+
+> Authorization: Bearer {token}
+
+#
+
+### Retorna apenas o usuário passado pelo id
+
+Caso dê tudo certo, a resposta será assim:
+
+`FORMATO DA RESPOSTA - STATUS 200 OK`
+
+```json
+{
+  "id": "15a8e5db-7e96-42e1-bee5-fca963f5ed47",
+  "name": "User",
+  "email": "user@gmail.com",
+  "age": 28,
+  "isAdm": true,
+  "isActive": true,
+  "createdAt": "2022-10-31T14:48:53.752Z",
+  "updatedAt": "2022-10-31T14:48:53.752Z"
+}
+```
+
+<h2 align ='center'> Possíveis erros </h2>
+
+Caso não passe o token no campo "Authorization"
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Token not found"
+}
+```
+
+Caso o token esteja errado
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Invalid Token"
+}
+```
+
 #
 
 <h1 align ='center'> Atualizar informações do usuário </h1>
 
-### Essa rota pode ser atualizado pelo próprio usuário, ou por um usuário administrador. Alguns campos não podem ser atualizados como: isActive, isAdm e id
-
 `PATCH /users/:id`
+
+#
+
+## Essa rota necessita de autenticação
+
+Rotas que necessitam de autenticação devem ser informado no cabeçalho da requisição o campo "Authorization", dessa forma:
+
+> Authorization: Bearer {token}
+
+#
+
+### Essa rota pode ser atualizado pelo próprio usuário, ou por um usuário administrador. É preciso informar name, email, age ou password para atualizar algum desses campos
+
+## Alguns campos não podem ser atualizados como: isActive, isAdm e id.
+
+```json
+{
+  "name": "Usuário"
+}
+```
+
+Caso dê tudo certo, a resposta será assim:
+
+`FORMATO DA RESPOSTA - STATUS 200 OK`
+
+```json
+{
+  "message": "User updated"
+}
+```
+
+<h2 align ='center'> Possíveis erros </h2>
+
+Caso tente atualizar algum campo que não pode ser atualizado
+
+`FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "isActive cannot be changed"
+}
+```
+
+Caso não passe o token no campo "Authorization"
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Token not found"
+}
+```
+
+Caso o token esteja errado
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Invalid Token"
+}
+```
+
+#
+
+<h1 align ='center'> Deletar um usuário </h1>
+
+`DELETE /users/:id`
+
+#
+
+## Essa rota necessita de autenticação
+
+Rotas que necessitam de autenticação devem ser informado no cabeçalho da requisição o campo "Authorization", dessa forma:
+
+> Authorization: Bearer {token}
+
+#
+
+### O usuário dono pode deletar apenas o seu próprio usuário, administradores conseguem deletar qualquer usuário.
+
+Caso dê tudo certo, a resposta será assim:
+
+`FORMATO DA RESPOSTA - STATUS 204 NO CONTENT`
+
+```json
+No body returned for response
+```
+
+<h2 align ='center'> Possíveis erros </h2>
+
+Caso não passe o token no campo "Authorization"
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Token not found"
+}
+```
+
+Caso o token esteja errado
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Invalid Token"
+}
+```
