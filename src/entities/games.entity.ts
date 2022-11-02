@@ -24,6 +24,9 @@ class Game {
   @CreateDateColumn({ type: 'date' })
   launch: string;
 
+  @Column({ default: true })
+  isActive: boolean;
+
   @Column()
   description: string;
 
