@@ -1,9 +1,9 @@
-import AppDataSource from "../../data-source";
-import { User } from "../../entities/user.entity";
+import AppDataSource from '../../data-source';
+import { User } from '../../entities/user.entity';
 
 const cartListGameService = async (id: string) => {
   const userRepository = AppDataSource.getRepository(User);
-    
+
   const cartProperties = await userRepository.findOne({
     where: {
       id: id,
@@ -14,6 +14,5 @@ const cartListGameService = async (id: string) => {
   });
 
   return cartProperties?.cart;
-}
+};
 export default cartListGameService;
-
