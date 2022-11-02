@@ -2,30 +2,30 @@ import { Column, CreateDateColumn, Entity,ManyToOne, PrimaryGeneratedColumn } fr
 import { Category } from "./categories.entity"
 
 
-@Entity('games')
+@Entity("games")
 class Game{
-    @PrimaryGeneratedColumn('uuid')
-    id:string
+    @PrimaryGeneratedColumn("uuid")
+    id: string
 
     @Column({ unique: true })
-    name:string
+    name: string
 
-    @Column({type: "decimal",precision:12,scale:2})
-    price:number
+    @Column({ type: "decimal", precision: 12, scale: 2 })
+    price: number
 
     @Column()
-    age:number
+    age: number
 
-    @CreateDateColumn({ type: 'date' })
+    @CreateDateColumn({ type: "date" })
     launch: string
 
     @Column()
-    description:string
+    description: string
 
     @Column()
-    developer:string
+    developer: string
 
     @ManyToOne(()=> Category)
-    id_category:Category
+    id_category: Category
 }
 export { Game }
