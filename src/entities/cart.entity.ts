@@ -19,7 +19,8 @@ class Cart {
     eager: true,
   })
   @JoinTable()
-  products: Game[];
+  games: Game[];
+  
 }
 
 export { Cart };
