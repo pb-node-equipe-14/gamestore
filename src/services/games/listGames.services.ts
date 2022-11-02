@@ -1,11 +1,16 @@
 import AppDataSource from '../../data-source';
 import { Game } from '../../entities/games.entity';
 
-const listAllGamesServices = async () => {
+const listGamesActiveServices = async () => {
   const gamesRepository = AppDataSource.getRepository(Game);
 
-  const allGames = gamesRepository.find();
+  const allGames = await gamesRepository.find({
+    where: {
+      isActive: true,
+    },
+  });
 
+  console.log(`o valor de allGames é: ${allGames} `);
   return allGames;
 };
-export { listAllGamesServices };
+export { listGamesActiveServices };

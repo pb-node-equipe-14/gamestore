@@ -1,9 +1,10 @@
 import { instanceToPlain } from 'class-transformer';
 import { Request, Response } from 'express';
-import { listAllGamesServices } from '../../services/games/listGames.services';
-const listAllGamesControllers = async (req: Request, res: Response) => {
-  const listAllGames = await listAllGamesServices();
+import { listGamesActiveServices } from '../../services/games/listGames.services';
+
+const listGamesActiveController = async (req: Request, res: Response) => {
+  const listAllGames = await listGamesActiveServices();
 
   return res.json(instanceToPlain(listAllGames));
 };
-export { listAllGamesControllers };
+export { listGamesActiveController };
