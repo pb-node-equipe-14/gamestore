@@ -371,3 +371,205 @@ Caso o token esteja errado
   "message": "Invalid Token"
 }
 ```
+
+#
+
+<h1 align ='center'> Carrinho do usuário </h1>
+
+`POST /cart`
+
+#
+
+## Essa rota necessita de autenticação
+
+Rotas que necessitam de autenticação devem ser informado no cabeçalho da requisição o campo "Authorization", dessa forma:
+
+> Authorization: Bearer {token}
+
+#
+
+### É preciso informar o id do game para conseguir adicionar games ao carrinho
+
+```json
+{
+  "game_id": "a502eb4a-0697-4e53-ad42-b44c0e25ad5e"
+}
+```
+
+Caso dê tudo certo, a resposta será assim:
+
+`FORMATO DA RESPOSTA - STATUS 201 CREATED`
+
+```json
+{
+  "id": "57c60449-c2b0-4b74-bcb1-09a29bc0032b",
+  "subtotal": 199.99,
+  "games": [
+    {
+      "id": "a502eb4a-0697-4e53-ad42-b44c0e25ad5e",
+      "name": "God of War 2",
+      "price": 199.99,
+      "age": 18,
+      "launch": "2022-10-31",
+      "isActive": true,
+      "description": "Um jogo muito massa",
+      "developer": "ABD",
+      "image": "teste"
+    }
+  ]
+}
+```
+
+<h2 align ='center'> Possíveis erros </h2>
+
+Caso não passe o token no campo "Authorization"
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Token not found"
+}
+```
+
+Caso o token esteja errado
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Invalid Token"
+}
+```
+
+Caso o jogo já esteja no carrinho
+
+` FORMATO DA RESPOSTA - STATUS 409 CONFLICT`
+
+```json
+{
+  "message": "Game is already in the cart"
+}
+```
+
+Caso o id de game esteja errado
+
+` FORMATO DA RESPOSTA - STATUS 404 NOT FOUND`
+
+```json
+{
+  "message": "Game not found"
+}
+```
+
+#
+
+<h1 align ='center'> Listar todos os games do usuário no carrinho </h1>
+
+`GET /cart`
+
+#
+
+## Essa rota necessita de autenticação
+
+Rotas que necessitam de autenticação devem ser informado no cabeçalho da requisição o campo "Authorization", dessa forma:
+
+> Authorization: Bearer {token}
+
+#
+
+### Retorna todos os games colocados no carrinho do usuário
+
+Caso dê tudo certo, a resposta será assim:
+
+`FORMATO DA RESPOSTA - STATUS 200 OK`
+
+```json
+{
+  "id": "57c60449-c2b0-4b74-bcb1-09a29bc0032b",
+  "subtotal": 199.99,
+  "games": [
+    {
+      "id": "a502eb4a-0697-4e53-ad42-b44c0e25ad5e",
+      "name": "God of War 2",
+      "price": 199.99,
+      "age": 18,
+      "launch": "2022-10-31",
+      "isActive": true,
+      "description": "Um jogo muito massa",
+      "developer": "ABD",
+      "image": "teste"
+    }
+  ]
+}
+```
+
+<h2 align ='center'> Possíveis erros </h2>
+
+Caso não passe o token no campo "Authorization"
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Token not found"
+}
+```
+
+Caso o token esteja errado
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Invalid Token"
+}
+```
+
+#
+
+<h1 align ='center'> Deletar o game no carrinho do usuário </h1>
+
+`DELETE /cart/game_id`
+
+#
+
+## Essa rota necessita de autenticação
+
+Rotas que necessitam de autenticação devem ser informado no cabeçalho da requisição o campo "Authorization", dessa forma:
+
+> Authorization: Bearer {token}
+
+#
+
+### Deleta um game através do id do game do carrinho
+
+Caso dê tudo certo, a resposta será assim:
+
+`FORMATO DA RESPOSTA - STATUS 204 NO CONTENT`
+
+```json
+No body returned for response
+```
+
+<h2 align ='center'> Possíveis erros </h2>
+
+Caso não passe o token no campo "Authorization"
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Token not found"
+}
+```
+
+Caso o token esteja errado
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Invalid Token"
+}
+```

@@ -22,11 +22,9 @@ const cartAddGameService = async (user_id: string, game_id: string) => {
     },
   });
 
-  const gameToAdd = await gameRepository.findOne({
-    where: {
-      id: game_id,
-    },
-  });
+  const games = await gameRepository.find();
+
+  const gameToAdd = games.find(game => game.id === game_id);
 
   if (!gameToAdd) {
     throw new AppError('Game not found', 404);
