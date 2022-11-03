@@ -4,6 +4,7 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -42,9 +43,8 @@ class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToOne(() => PaymentInfo, { eager: true })
-  @JoinColumn()
-  paymentInfo: PaymentInfo;
+  @OneToMany(() => PaymentInfo, (payment_infos) => payment_infos.user)
+  paymentInfo: PaymentInfo[];
 
   @OneToOne(() => Favorite)
   @JoinColumn()

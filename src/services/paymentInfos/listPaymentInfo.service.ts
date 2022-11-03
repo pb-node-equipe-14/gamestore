@@ -1,12 +1,18 @@
 import AppDataSource from '../../data-source';
-import { PaymentInfo } from '../../entities/payment.entity';
+import { User } from '../../entities/user.entity';
 
-const listPaymentInfoService = async () => {
-  const paymentInfoRepository = AppDataSource.getRepository(PaymentInfo);
+const listPaymentInfoService = async (id: string) => {
+  const userRepository = AppDataSource.getRepository(User);
 
-  const paymentInfo = await paymentInfoRepository.find();
-
-  return paymentInfo;
+  const user = await userRepository.findOne({
+    where: {
+      id,
+    },
+    relations: {
+      paymentInfo: true,
+    },
+  });
+  return user?.paymentInfo;
 };
 
 export { listPaymentInfoService };

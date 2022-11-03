@@ -2,7 +2,9 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
+  ManyToOne,
 } from 'typeorm';
+import { User } from './user.entity';
 
 @Entity('payment_infos')
 class PaymentInfo {
@@ -20,6 +22,9 @@ class PaymentInfo {
 
   @Column({ length: 3 })
   code: string;
+
+  @ManyToOne(() => User, { eager: true })
+  user:User;
 }
 
 export { PaymentInfo };
