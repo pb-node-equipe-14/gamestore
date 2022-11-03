@@ -7,12 +7,9 @@ import { verifyAuthUserMiddleware } from '../middlewares/verifyAuthUser.middlewa
 const routes = Router();
 
 export const cartRoutes = () => {
-
   routes.post('', verifyAuthUserMiddleware, cartAddGameController);
   routes.get('', verifyAuthUserMiddleware, cartListGameController);
-  routes.delete('', verifyAuthUserMiddleware, cartDelGameController);
+  routes.delete('/:game_id', verifyAuthUserMiddleware, cartDelGameController);
 
   return routes;
 };
-
-
