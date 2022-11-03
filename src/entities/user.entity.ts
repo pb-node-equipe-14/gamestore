@@ -44,6 +44,7 @@ class User {
 
   @OneToOne(() => PaymentInfo, { eager: true })
   @JoinColumn()
+  @Exclude()
   paymentInfo: PaymentInfo;
 
   @OneToOne(() => Favorite)
@@ -52,6 +53,7 @@ class User {
 
   @OneToOne(() => Cart, { eager: true })
   @JoinColumn()
+  @Exclude()
   cart: Cart;
 }
 
