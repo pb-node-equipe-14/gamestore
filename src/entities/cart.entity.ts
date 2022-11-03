@@ -20,7 +20,6 @@ class Cart {
   })
   @JoinTable()
   games: Game[];
-  
 }
 
 export { Cart };
