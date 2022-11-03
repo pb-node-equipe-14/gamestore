@@ -15,7 +15,7 @@ class Game {
   @Column({ unique: true })
   name: string;
 
-  @Column({ type: 'decimal', precision: 12, scale: 2 })
+  @Column('float')
   price: number;
 
   @Column()

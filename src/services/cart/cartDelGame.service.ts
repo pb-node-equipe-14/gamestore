@@ -15,6 +15,8 @@ const cartDelGameService = async (user_id: string, game_id: string) => {
 
   const cartRepository = AppDataSource.getRepository(Cart);
 
+  console.log(game_id);
+
   const cart = await cartRepository.findOne({
     where: {
       id: user?.cart.id,
@@ -23,7 +25,7 @@ const cartDelGameService = async (user_id: string, game_id: string) => {
 
   if (cart) {
     if (cart.games.filter(game => game.id === game_id).length === 0) {
-      throw new AppError('Product is not in the cart', 404);
+      throw new AppError('Game is not in the cart', 404);
     }
 
     cart.games = cart.games.filter(game => game.id !== game_id);

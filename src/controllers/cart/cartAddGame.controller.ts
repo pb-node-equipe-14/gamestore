@@ -5,7 +5,7 @@ const cartAddGameController = async (req: Request, res: Response) => {
   const user_id = req.user.id;
   const { game_id } = req.body;
 
-  const cartAdd = await cartAddGameService(game_id, user_id);
+  const cartAdd = await cartAddGameService(user_id, game_id);
 
   return res.status(201).json(cartAdd);
 };
