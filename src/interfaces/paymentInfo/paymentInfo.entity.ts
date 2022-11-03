@@ -1,6 +1,6 @@
 interface IPaymentInfoRequest {
   name: string
-  dueDate: Date
+  dueDate: string
   code: string
   number: string
 }

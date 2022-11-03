@@ -1,3 +1,4 @@
+import { IPaymentInfoRequest } from '../../interfaces/paymentInfo/paymentInfo.entity';
 import {
   IUserLogin,
   IUserRequest,
@@ -35,4 +36,11 @@ export const mockedUserLogin: IUserLogin = {
 export const mockedAdminLogin: IUserLogin = {
   email: 'user2@mail.com',
   password: '123',
+};
+
+export const mockedPaymentInfo: IPaymentInfoRequest = {
+  name: 'carlos',
+  dueDate: '2022-01-01',
+  code: '222',
+  number: '12345678'
 };
