@@ -14,8 +14,17 @@ const createPaymentInfoService = async (
   const payments = await paymentInfoRepository.find();
   const users = await userRepository.find();
 
-  const payment = payments.find(payment => payment.id === id);
   const user = users.find(user => user.id === id);
+
+  const paymentInfoAlreadyExists = payments.find(payment => payment.name === name && payment.code === code && payment.number === number)
+
+  if (code.length != 3){
+    throw new AppError("error")
+  }
+
+  if (paymentInfoAlreadyExists) {
+    throw new AppError("Payment already exists!", 400)
+  }
 
   const paymentInfo = await paymentInfoRepository.save({
     user,
