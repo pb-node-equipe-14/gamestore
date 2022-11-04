@@ -43,7 +43,7 @@ class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(() => PaymentInfo, (payment_infos) => payment_infos.user)
+  @OneToMany(() => PaymentInfo, payment_infos => payment_infos.user)
   paymentInfo: PaymentInfo[];
 
   @OneToOne(() => Favorite)
@@ -52,6 +52,7 @@ class User {
 
   @OneToOne(() => Cart, { eager: true })
   @JoinColumn()
+  @Exclude()
   cart: Cart;
 }
 
