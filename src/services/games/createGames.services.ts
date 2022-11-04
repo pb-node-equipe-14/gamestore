@@ -15,12 +15,10 @@ const createGamesServices = async ({
   developer,
   description,
   image,
-}: //id_categoryId,
-IGamesrequest) => {
+  id_categoryId,
+}: IGamesrequest) => {
   const gamesRepository = AppDataSource.getRepository(Game);
   const games = await gamesRepository.find();
-
-  //console.log(`o valor de id_categoryId é ${id_categoryId}`);
 
   const verifyGameAlreadyExist = games.find(game => game.name === name);
 
@@ -28,16 +26,15 @@ IGamesrequest) => {
     throw new AppError('This game already exists');
   }
 
-  /*const categoryRepository = AppDataSource.getRepository(Category);
-  const id = id_categoryId;
-  // verifica se a categoria existe e se não existir retorna um erro
-  const verifycategoryAlreadyExist = await categoryRepository.findOne({
-    where: id,
-  });  
+  const categoryRepository = AppDataSource.getRepository(Category);
+
+  const verifycategoryAlreadyExist = await categoryRepository.findOneBy({
+    id: id_categoryId,
+  });
 
   if (!verifycategoryAlreadyExist) {
     throw new AppError('category not found!');
-  }*/
+  }
 
   const newGame = await gamesRepository.save({
     name,
@@ -47,7 +44,7 @@ IGamesrequest) => {
     developer,
     description,
     image,
-    //  id_categoryId,
+    id_categoryId: verifycategoryAlreadyExist,
   });
 
   return newGame;

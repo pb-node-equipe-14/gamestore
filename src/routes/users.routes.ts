@@ -24,7 +24,12 @@ export const userRoutes = () => {
     verifyUserAdmMiddleware,
     listAllUsersController,
   );
-  routes.get('/:id', verifyAuthUserMiddleware, listUserController);
+  routes.get(
+    '/:id',
+    verifyAuthUserMiddleware,
+    verifyOwnerMiddleware,
+    listUserController,
+  );
 
   routes.patch(
     '/:id',

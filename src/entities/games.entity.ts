@@ -36,8 +36,8 @@ class Game {
   @Column()
   image: string;
 
-  // @ManyToOne(()=> Category)
-  // tabelas que se relacionam com games, cart,favorite, purchased,category
-  // id_category: Category
+  @ManyToOne(() => Category)
+  category: Category;
+
 }
 export { Game };

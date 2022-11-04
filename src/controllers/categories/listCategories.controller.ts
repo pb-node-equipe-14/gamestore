@@ -6,3 +6,5 @@ const listCategoriesController = async (req: Request, res: Response) => {
 
   return res.status(200).json(listCategory);
 };
+
+export { listCategoriesController };
