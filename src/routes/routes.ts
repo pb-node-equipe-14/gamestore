@@ -7,6 +7,7 @@ import { sessionRoutes } from './session.routes';
 import { userRoutes } from './users.routes';
 
 import { categoriesRoutes } from './categories.routes';
+import { favoriteRoutes } from './favorite.routes';
 
 export const appRoutes = (app: Express) => {
   app.use('/users', userRoutes());
@@ -16,5 +17,5 @@ export const appRoutes = (app: Express) => {
   app.use('/login', sessionRoutes());
   app.use('/categories', categoriesRoutes());
   app.use('/games', gamesRoutes());
-  app.use('/favorite',favoriteRoutes());  
+  app.use('/favorite', favoriteRoutes());
 };

@@ -1,10 +1,10 @@
-import AppDataSource from "../../data-source"
-import { Favorite } from "../../entities/favorite.entity"
+import AppDataSource from '../../data-source';
+import { Favorite } from '../../entities/favorite.entity';
 
-const listFavoritesService = ():Promise<Favorite[]>=>{
-    const favoriteRespository = AppDataSource.getRepository(Favorite)
-    const favorites = favoriteRespository.find();
+const listFavoritesService = (): Promise<Favorite[]> => {
+  const favoriteRepository = AppDataSource.getRepository(Favorite);
+  const favorites = favoriteRepository.find();
 
-    return favorites;
-}
+  return favorites;
+};
 export default listFavoritesService;

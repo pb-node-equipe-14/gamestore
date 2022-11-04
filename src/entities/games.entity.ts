@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Category } from './categories.entity';
+import { Favorite } from './favorite.entity';
 
 @Entity('games')
 class Game {
@@ -39,5 +40,7 @@ class Game {
   @ManyToOne(() => Category)
   category: Category;
 
+  @ManyToOne(() => Favorite)
+  favorite: Favorite;
 }
 export { Game };

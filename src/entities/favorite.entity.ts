@@ -13,8 +13,8 @@ class Favorite {
   @PrimaryGeneratedColumn('uuid')
   id: string;
   @CreateDateColumn()
-  data_insert: Date; 
-  @OneToMany(()=>Game, id_game => id_game.name )
-  id_games:Game[]
+  data_insert: Date;
+  @OneToMany(()=>Game, game => game.favorite)
+  games:Game[]
 }
 export { Favorite };

@@ -4,9 +4,9 @@ import createFavoriteService from '../../services/favorite/createFavorite.servic
 
 const createFavoriteController= async(req:Request,res:Response)=>{
 
-    const{}=req.body
+    const{ id_games }=req.body
 
-    const favorite = await createFavoriteService({})
+    const favorite = await createFavoriteService({ id_games })
 
     return res.status(200).json(instanceToInstance(favorite))
 }

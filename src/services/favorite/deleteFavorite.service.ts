@@ -1,21 +1,18 @@
-import AppDataSource from "../../data-source"
-import { Favorite } from "../../entities/favorite.entity"
-import { AppError } from "../../errors/appError"
+import AppDataSource from '../../data-source';
+import { Favorite } from '../../entities/favorite.entity';
 
+import { AppError } from '../../errors/appError';
 
+const deleteFavoriteService = async (id: string) => {
+  const favoriteRepository = AppDataSource.getRepository(Favorite)
+  const favorites = await favoriteRepository.find()
+  const favorite = favorites.find(item => item.id === id)
 
-const deleteFavoriteService = async (id:string)=>{
-    
-    const favoriteRespository = AppDataSource.getRepository(Favorite)
+  if (!favorite) {
+    return "erro"
+  }
 
-    const favorites = await favoriteRespository.find()
-
-    const favorite = favorites.find(game=> game.id === id)
-
-    if(!favorite){
-        throw new AppError('Game not found', 404);
-    }
-
-    await favoriteRespository.delete(favorite)
-}
+  await favoriteRepository.delete(favorite)
+};
 export default deleteFavoriteService;
+

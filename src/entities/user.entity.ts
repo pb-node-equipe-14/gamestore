@@ -46,7 +46,7 @@ class User {
   @OneToMany(() => PaymentInfo, payment_infos => payment_infos.user)
   paymentInfo: PaymentInfo[];
 
-  @OneToOne(() => Favorite)
+  @OneToOne(() => Favorite, {eager: true})
   @JoinColumn()
   favorite: Favorite;
 
