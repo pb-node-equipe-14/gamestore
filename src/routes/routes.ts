@@ -5,6 +5,7 @@ import { gamesRoutes } from './games.routes';
 import { purchasedRoutes } from './purchased.routes';
 import { sessionRoutes } from './session.routes';
 import { userRoutes } from './users.routes';
+import { favoriteRoutes } from './favorite.routes';
 
 export const appRoutes = (app: Express) => {
   app.use('/users', userRoutes());
@@ -13,4 +14,5 @@ export const appRoutes = (app: Express) => {
   app.use('/cart', cartRoutes());
   app.use('/login', sessionRoutes());
   app.use('/games', gamesRoutes());
+  app.use('/favorite',favoriteRoutes());  
 };
