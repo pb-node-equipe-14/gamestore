@@ -45,9 +45,3 @@ export const mockedPaymentInfo: IPaymentInfoRequest = {
   number: '12345678'
 };
 
-export const mockedPaymentIntoLenght: IPaymentInfoRequest = {
-  name: 'carlos',
-  dueDate: '2022-01-01',
-  code: '2222',
-  number: '12345678'
-}

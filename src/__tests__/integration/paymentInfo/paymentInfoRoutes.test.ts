@@ -85,21 +85,7 @@ describe('/payment_infos', () => {
       .set('Authorization', `Bearer ${userLoginResponse.body.token}`);
 
     expect(response.body).toHaveLength(1);
-  });
-
-  test('GET /payment_infos/:id -  Must be able to list one payment_info', async () => {
-    await request(app).post('/payment_infos/').send(mockedUser);
-    const userLoginResponse = await request(app)
-      .post('/login')
-      .send(mockedUserLogin);
-    const payment = await request(app)
-      .get('/payment_infos')
-      .set('Authorization', `Bearer ${userLoginResponse.body.token}`);
-    const response = await request(app)
-      .get(`/payment_infos/${payment.body[0].id}`)
-      .set('Authorization', `Bearer ${userLoginResponse.body.token}`);
-
-    expect(response.body).toHaveProperty('');
+    expect(response.status).toBe(200);
   });
 
   test('GET /payment_infos -  Should not be able to list payment_infos without authentication', async () => {
@@ -107,5 +93,16 @@ describe('/payment_infos', () => {
 
     expect(response.body).toHaveProperty('message');
     expect(response.status).toBe(401);
+  });
+
+  test('DELETE /payment_infos/:id -  Must delete the payment', async () => {
+    const userLoginResponse = await request(app)
+      .post('/login')
+      .send(mockedUserLogin);
+    const response = await request(app)
+      .delete(`/payment_infos/${userLoginResponse.body.id}`)
+      .set('Authorization', `Bearer ${userLoginResponse.body.token}`);
+
+    expect(response.body).toHaveProperty('message');
   });
 });
