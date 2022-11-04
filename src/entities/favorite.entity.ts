@@ -13,7 +13,7 @@ class Favorite {
   id: string;
   @CreateDateColumn()
   data_insert: Date;
-
+// tem que  
   @ManyToMany(type => Game, {
     eager: true,
   })
