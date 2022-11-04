@@ -36,7 +36,7 @@ class Game {
   @Column()
   image: string;
 
-  // @ManyToOne(()=> Category)
-  // id_category: Category
+  @ManyToOne(() => Category)
+  category: Category;
 }
 export { Game };
