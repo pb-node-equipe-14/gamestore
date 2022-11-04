@@ -17,26 +17,26 @@ export const gamesRoutes = () => {
     verifyAuthUserMiddleware,
     verifyUserAdmMiddleware,
     createGamesController,
-  ); // rota precisa de verifyAdminMiddleware,
-  routes.get('', verifyAuthUserMiddleware, listAdminAllGamesController);
+  ); 
+  routes.get('', verifyAuthUserMiddleware, verifyUserAdmMiddleware, listAdminAllGamesController);
   routes.patch(
     '/:id',
     verifyAuthUserMiddleware,
     verifyUserAdmMiddleware,
     UpdateGamesControllers,
-  ); //rota precisa de verifyAdminMiddleware
+  ); 
   routes.delete(
     '/:id',
     verifyAuthUserMiddleware,
     verifyUserAdmMiddleware,
     deleteGamesController,
-  ); //rota precisa de verifyAdminMiddleware
+  ); 
 
-  // rota precisa de verifyAdminMiddleware
+
+  // rotas não precisam de administrador 
   routes.get(
     '/isActive',
     verifyAuthUserMiddleware,
-    verifyUserAdmMiddleware,
     listGamesActiveController,
   );
   routes.get('/:id', verifyAuthUserMiddleware, listOneGamesControllers);

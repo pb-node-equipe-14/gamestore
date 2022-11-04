@@ -573,3 +573,423 @@ Caso o token esteja errado
   "message": "Invalid Token"
 }
 ```
+
+
+
+
+
+
+<h1 align ='center'> Criar Games </h1>
+
+`POST /games`
+
+#
+
+### Essa rota precisa passar obrigatoriamente um name, price, launch, description, developer, image. É necessário estar autenticado e Apenas usuários administradores conseguirão criar games
+
+```json
+{
+  "name": "Bleach: Blade Battlers 2",
+  "price": 23,
+  "age": 34,
+  "launch": "27/09/2007",
+  "description": "Na série Blade Battlers, o jogador assume o controle de um dos muitos personagens originais do mangá. Como a maioria dos outros jogos de luta a idéia é combater a personagem adversário, ou permanecer em batalha no modo freefor-all, até que sua saúde esteja totalmente esgotada",
+  "developer": "Racjin",
+  "image": "https://tcrf.net/images/4/4e/Bleach_Blade_Battlers_2_-_Title.png"
+}
+```
+
+Caso dê tudo certo, a resposta será assim:
+
+`FORMATO DA RESPOSTA - STATUS 201 CREATED`
+
+```json
+{
+  "name": "Bleach",
+  "price": 23,
+  "age": 34,
+  "launch": "2007-09-27",
+  "developer": "Racjin",
+  "description": "Na série Blade Battlers, o jogador assume o controle de um dos muitos personagens originais do mangá. Como a maioria dos outros jogos de luta a idéia é combater a personagem adversário, ou permanecer em batalha no modo freefor-all, até que sua saúde esteja totalmente esgotada",
+  "image": "https://tcrf.net/images/4/4e/Bleach_Blade_Battlers_2_-_Title.png",
+  "id": "72ccd194-4ac5-4f96-bf8f-747349849749",
+  "isActive": true
+}
+```
+
+<h2 align ='center'> Possíveis erros </h2>
+
+Caso já tenha sido cadastrado o jogo
+
+` FORMATO DA RESPOSTA - STATUS 400 BAD REQUEST`
+
+```json
+{
+  "message": "This game already exists"
+}
+```
+
+Caso não tenha sido preenchido "name", "price", "age", "launch", "developer","description", "image"
+
+` FORMATO DA RESPOSTA - STATUS 500 Internal Server Error`
+
+```json
+{
+  "message": "Internal server error"
+}
+```
+
+Caso o usuário não seja administrador
+
+` FORMATO DA RESPOSTA - STATUS 403 FORBIDDEN`
+
+```json
+{
+  "message": "User is not admin"
+}
+```
+
+
+#
+
+<h1 align ='center'> Listar todos os  Games </h1>
+
+`GET /games`
+
+## Essa rota necessita de autenticação
+
+Rotas que necessitam de autenticação devem ser informado no cabeçalho da requisição o campo "Authorization", dessa forma:
+
+> Authorization: Bearer {token}
+#
+Essa rota necessita de Administrador
+#
+
+### Essa rota é responsável por listar todos os Games e lista todos os jogos tanto os que estao ativos quanto os que não estão
+
+#
+
+
+Caso dê tudo certo, a resposta será assim:
+
+`FORMATO DA RESPOSTA - STATUS 200 OK`
+
+```json
+[
+  {
+    "id": "6c8c6e6c-7b17-4aac-a315-4d0f5b1cf6dd",
+    "name": "Naruto",
+    "price": 23,
+    "age": 34,
+    "launch": "2018-10-22",
+    "isActive": true,
+    "description": "um jogo sobre ninjas ",
+    "developer": "Bandai CAMPCOM",
+    "image": "https://oxentesensei.com.br/wp-content/webp-express/webp-images/uploads/2022/03/curiosidades-Sasuke-Uchiha-capa.jpg.webp"
+  },
+  {
+    "id": "431926d9-4c92-45ee-8eda-8dd5d0feb65b",
+    "name": "Bleach Brave Souls",
+    "price": 23,
+    "age": 18,
+    "launch": "2020-08-17",
+    "isActive": false,
+    "description": "um jogo sobre espadas",
+    "developer": "Bandai CAMPCOM",
+    "image": "https://cdn.cloudflare.steamstatic.com/steam/apps/1201240/header.jpg?t=1667210470"
+  }
+]
+```
+
+<h2 align ='center'> Possíveis erros </h2>
+
+Caso não passe o token no campo "Authorization"
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Invalid token"
+}
+```
+` FORMATO DA RESPOSTA - STATUS 403 FORBIDDEN`
+```json
+{
+	"message": "User is not admin"
+}
+```
+
+
+
+
+<h1 align ='center'> Listar um Game </h1>
+
+`GET /games/:id`
+
+#
+
+## Essa rota necessita de autenticação
+
+Rotas que necessitam de autenticação devem ser informado no cabeçalho da requisição o campo "Authorization", dessa forma:
+
+> Authorization: Bearer {token}
+
+
+
+#
+
+### Retorna apenas o game passado pelo id
+
+Caso dê tudo certo, a resposta será assim:
+
+`FORMATO DA RESPOSTA - STATUS 200 OK`
+
+```json
+{
+  "id": "431926d9-4c92-45ee-8eda-8dd5d0feb65b",
+  "name": "Bleach Brave Souls",
+  "price": 23,
+  "age": 18,
+  "launch": "2020-08-17",
+  "isActive": false,
+  "description": "um jogo sobre espadas",
+  "developer": "Bandai CAMPCOM",
+  "image": "https://cdn.cloudflare.steamstatic.com/steam/apps/1201240/header.jpg?t=1667210470"
+}
+```
+
+<h2 align ='center'> Possíveis erros </h2>
+
+Caso não passe o token no campo "Authorization"
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Invalid token"
+}
+```
+Caso o token esteja errado
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Invalid Token"
+}
+```
+
+<h1 align ='center'> Listar todos os games ativos  </h1>
+
+`GET /games/isActive`
+
+#
+
+## Essa rota necessita de autenticação
+
+Rotas que necessitam de autenticação devem ser informado no cabeçalho da requisição o campo "Authorization", dessa forma:
+
+> Authorization: Bearer {token}
+
+#
+
+### Retorna apenas o game passado pelo id
+
+Caso dê tudo certo, a resposta será assim:
+
+`FORMATO DA RESPOSTA - STATUS 200 OK`
+
+```json
+{
+  "id": "431926d9-4c92-45ee-8eda-8dd5d0feb65b",
+  "name": "Bleach Brave Souls",
+  "price": 23,
+  "age": 18,
+  "launch": "2020-08-17",
+  "isActive": false,
+  "description": "um jogo sobre espadas",
+  "developer": "Bandai CAMPCOM",
+  "image": "https://cdn.cloudflare.steamstatic.com/steam/apps/1201240/header.jpg?t=1667210470"
+}
+```
+
+<h2 align ='center'> Possíveis erros </h2>
+
+Caso não passe o token no campo "Authorization"
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Invalid token"
+}
+```
+
+Caso o token esteja errado
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Invalid Token"
+}
+```
+
+#
+
+<h1 align ='center'> Atualizar informações de um game </h1>
+
+`PATCH /games/:id`
+
+#
+
+## Essa rota necessita de autenticação
+
+Rotas que necessitam de autenticação devem ser informado no cabeçalho da requisição o campo Authorization", dessa forma:
+
+> Authorization: Bearer {token}
+
+Além disso, essa rota só pode ser acessada por usuários administradores
+
+#
+
+### Essa rota pode ser atualizado pelo próprio usuário, ou por um usuário administrador. É preciso informar "name", "price", "age", "launch", "developer","description", "image" ou "id" ou para atualizar algum desses campos
+
+## Alguns campos não podem ser atualizados como: isActive e id
+
+```json
+{
+  "name": "Bleach Brave Souls2"
+}
+```
+
+Caso dê tudo certo, a resposta será assim:
+
+`FORMATO DA RESPOSTA - STATUS 200 OK`
+
+```json
+{
+  "message": "Game updated"
+}
+```
+
+<h2 align ='center'> Possíveis erros </h2>
+
+Caso tente atualizar algum campo que não pode ser atualizado
+
+`FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "isActive cannot be changed"
+}
+```
+
+Caso o usuário não seja administrador
+` FORMATO DA RESPOSTA - STATUS 403 FORBIDDEN`
+
+```json
+{
+  "message": "User is not admin"
+}
+```
+
+Caso não passe o token no campo "Authorization"
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Invalid Token"
+}
+```
+
+Caso o id do game esteja errado
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Game not found"
+}
+```
+
+Caso o token esteja errado
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Invalid Token"
+}
+```
+
+#
+
+<h1 align ='center'> Deletar um Game</h1>
+
+`DELETE /games/:id`
+
+#
+
+## Essa rota necessita de autenticação
+
+Rotas que necessitam de autenticação devem ser informado no cabeçalho da requisição o campo "Authorization", dessa forma:
+
+> Authorization: Bearer {token}
+
+Além disso, essa rota só pode ser acessada por usuários administradores
+
+#
+
+### Um usuário dono pode deletar seu game e administradores conseguem deletar qualquer game.
+
+Caso dê tudo certo, a resposta será assim:
+
+`FORMATO DA RESPOSTA - STATUS 204 NO CONTENT`
+
+```json
+No body returned for response
+```
+
+<h2 align ='center'> Possíveis erros </h2>
+
+Caso não passe o token no campo "Authorization"
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Token not found"
+}
+```
+
+Caso seja passado o id errado do game
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Game not found"
+}
+```
+
+Caso o usuário não seja administrador
+
+` FORMATO DA RESPOSTA - STATUS 403 FORBIDDEN`
+
+```json
+{
+  "message": "User is not admin"
+}
+```
+
+Caso o game já tenha sido exclúido
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Game Already excluded"
+}
+```

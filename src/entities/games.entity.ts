@@ -38,5 +38,6 @@ class Game {
 
   @ManyToOne(() => Category)
   category: Category;
+
 }
 export { Game };
