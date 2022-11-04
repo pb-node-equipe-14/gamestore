@@ -16,4 +16,3 @@ export const paymentInfoRoutes = () => {
 
   return paymentInfosRoutes;
 };
-
