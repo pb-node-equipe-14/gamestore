@@ -17,14 +17,13 @@ export class Purchased {
   @CreateDateColumn()
   aquisitonAt: Date;
 
-  //relação de manyToOne com users
-  @ManyToOne(() => User)
-  user: User  
+  @ManyToOne((type) => User, (user) => user.purchased)
+  user: User;
   
   @ManyToMany((type) => Game, {
     eager: true,
   })
   @JoinTable()
-  products: Game[];
+  games: Game[];
 }
 

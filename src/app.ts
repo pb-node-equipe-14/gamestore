@@ -10,7 +10,6 @@ app.use(express.json());
 
 appRoutes(app);
 
-
 app.use(handleErrorMiddleware);
 
 export default app;

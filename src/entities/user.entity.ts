@@ -12,6 +12,7 @@ import {
 import { Cart } from './cart.entity';
 import { Favorite } from './favorite.entity';
 import { PaymentInfo } from './payment.entity';
+import { Purchased } from './purchased.entity';
 
 @Entity('users')
 class User {
@@ -54,6 +55,11 @@ class User {
   @JoinColumn()
   @Exclude()
   cart: Cart;
-}
 
+  @OneToMany((type) => Purchased, (purchased) => purchased.user, { eager: true })
+  @JoinColumn()
+  @Exclude()
+  purchased: Purchased[];
+
+}
 export { User };
