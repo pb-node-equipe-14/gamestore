@@ -662,12 +662,13 @@ Rotas que necessitam de autenticação devem ser informado no cabeçalho da requ
 
 > Authorization: Bearer {token}
 #
-
+Essa rota necessita de Administrador
 #
 
 ### Essa rota é responsável por listar todos os Games e lista todos os jogos tanto os que estao ativos quanto os que não estão
 
 #
+
 
 Caso dê tudo certo, a resposta será assim:
 
@@ -711,6 +712,15 @@ Caso não passe o token no campo "Authorization"
   "message": "Invalid token"
 }
 ```
+` FORMATO DA RESPOSTA - STATUS 403 FORBIDDEN`
+```json
+{
+	"message": "User is not admin"
+}
+```
+
+
+
 
 <h1 align ='center'> Listar um Game </h1>
 
@@ -724,7 +734,7 @@ Rotas que necessitam de autenticação devem ser informado no cabeçalho da requ
 
 > Authorization: Bearer {token}
 
-Além disso, para essa rota ser acessada é necessário permissão de administrador
+
 
 #
 
@@ -759,16 +769,6 @@ Caso não passe o token no campo "Authorization"
   "message": "Invalid token"
 }
 ```
-
-Caso o usuário não seja administrador
-` FORMATO DA RESPOSTA - STATUS 403 FORBIDDEN`
-
-```json
-{
-  "message": "User is not admin"
-}
-```
-
 Caso o token esteja errado
 
 ` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
