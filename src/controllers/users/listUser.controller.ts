@@ -7,7 +7,7 @@ const listUserController = async (req: Request, res: Response) => {
 
   const listUser = await listUserService(id);
 
-  return res.status(200).json(listUser);
+  return res.status(200).json(instanceToPlain(listUser));
 };
 
 export { listUserController };

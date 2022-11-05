@@ -10,7 +10,7 @@ import {
   mockedUserWithoutPassword,
 } from '../../mocks';
 
-describe('Users', () => {
+describe('/users', () => {
   let connection: DataSource;
 
   beforeAll(async () => {
@@ -103,28 +103,9 @@ describe('Users', () => {
     expect(response.status).toBe(401);
   });
 
-  test('GET/ users/:id - Must be able to list one user', async () => {
-    const user = await request(app).get('/users');
-    const response = await request(app).get(`/users/${user.body[0].id}`);
-
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('id');
-    expect(response.body).toHaveProperty('name');
-    expect(response.body).toHaveProperty('age');
-    expect(response.body).toHaveProperty('email');
-    expect(response.body).toHaveProperty('isAdm');
-    expect(response.body).toHaveProperty('isActive');
-    expect(response.body).toHaveProperty('createdAt');
-    expect(response.body).toHaveProperty('updatedAt');
-    expect(response.body).not.toHaveProperty('password');
-    expect(response.body).not.toHaveProperty('paymentInfo');
-    expect(response.body).not.toHaveProperty('favorite');
-    expect(response.body).not.toHaveProperty('cart');
-  });
-
   test('GET/ users/:id - should not be able to list an user without authentication', async () => {
     const user = await request(app).get('/users');
-    const response = await request(app).get(`/users/${user.body[0].id}`);
+    const response = await request(app).get(`/users/${user.body.id}`);
 
     expect(response.body).toHaveProperty('message');
     expect(response.status).toBe(401);
