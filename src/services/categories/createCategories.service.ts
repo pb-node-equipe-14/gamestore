@@ -6,9 +6,9 @@ import { ICategoryRequest } from '../../interfaces/categories';
 const createCategoriesService = async ({
   name,
 }: ICategoryRequest): Promise<Category> => {
-  const categorieRepository = AppDataSource.getRepository(Category);
+  const categoryRepository = AppDataSource.getRepository(Category);
 
-  const findCategory = await categorieRepository.findOneBy({
+  const findCategory = await categoryRepository.findOneBy({
     name: name,
   });
 
@@ -16,11 +16,7 @@ const createCategoriesService = async ({
     throw new AppError('Category already exists', 400);
   }
 
-  const newCategory = categorieRepository.create({
-    name,
-  });
-
-  await categorieRepository.save(newCategory);
+  const newCategory = await categoryRepository.save({ name });
 
   return newCategory;
 };
