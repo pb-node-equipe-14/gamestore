@@ -11,7 +11,6 @@ const handleErrorMiddleware = async (
     return response.status(error.statusCode).json({ message: error.message });
   }
   console.log(error);
-  console.log(`testando `);
 
   return response.status(500).json({ message: 'Internal server error' });
 };

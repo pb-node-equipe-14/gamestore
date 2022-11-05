@@ -1,3 +1,4 @@
+import { ICategoryRequest } from '../../interfaces/categories';
 import { IPaymentInfoRequest } from '../../interfaces/paymentInfo/paymentInfo.entity';
 import {
   IUserLogin,
@@ -45,3 +46,6 @@ export const mockedPaymentInfo: IPaymentInfoRequest = {
   number: '12345678'
 };
 
+export const mockedCategories: ICategoryRequest = {
+  name: "Terror"
+}

@@ -4,8 +4,8 @@ import deleteFavoriteService from '../../services/favorite/deleteFavorite.servic
 
 const deleteFavoriteController = async (req: Request, res: Response)=>{
     const {id} = req.params;
-    const deleteFavorite = await deleteFavoriteService(id)
-    return res.status(204).json(deleteFavorite)
+    await deleteFavoriteService(id)
+    return res.status(204).json({ message: "Favorite"})
 
 }
 

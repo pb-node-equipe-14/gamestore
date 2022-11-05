@@ -5,20 +5,22 @@ import { AppError } from "../../errors/appError";
 import { Game } from "../../entities/games.entity";
 
 const createFavoriteService = async({id_games}:IFavoriteRequest):Promise<Favorite>=>{
+
     const favoriteRepository = AppDataSource.getRepository(Favorite)
-    const favorite = await favoriteRepository.find()
+    const gameRepository     = AppDataSource.getRepository(Game)
 
-    const verifyFavoritelreadyExist= favorite.find(favorite=> favorite.id === id_games)
-    if(verifyFavoritelreadyExist){
-        throw new AppError('This favorite already exists')
-    }
+    const gamesFavorite = await gameRepository.find({
+      where: {
+        id:id_games
+      }
+    });
 
-    const newFavorite = await favoriteRepository.save({
-     data_insert:Date()
+    const favorite = await favoriteRepository.save({
+      data_insert: new Date().toLocaleString(),
+      games: gamesFavorite
     })
 
-    return newFavorite
-
+    return favorite;
 }
 
 export default createFavoriteService

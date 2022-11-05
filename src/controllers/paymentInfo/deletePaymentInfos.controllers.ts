@@ -3,8 +3,8 @@ import { deletePaymentInfoService } from '../../services/paymentInfos/deletePaym
 
 const deletePaymentInfoController = async (req: Request, res: Response) => {
   const { id }  = req.params;
-  const deletePaymentInfo = await deletePaymentInfoService(id);
-  return res.status(204).json(deletePaymentInfo);
+  await deletePaymentInfoService(id);
+  return res.status(204).json({ message: "User deleted with success!" });
 };
 
 export { deletePaymentInfoController };
