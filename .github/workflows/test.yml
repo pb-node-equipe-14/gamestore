@@ -2,9 +2,9 @@ name: Execução dos testes de integração
 
 on:
   push:
-    branches: [$default-branch]
+    branches: [develop]
   pull_request:
-    branches: [$default-branch]
+    branches: [develop]
 
 jobs:
   integration_tests:
