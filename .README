@@ -1,0 +1,3 @@
+yarn add -D eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
+yarn add prettier -D
+yarn add eslint-config-prettier@6.15.0 eslint-plugin-prettier@3.2.0 -D
