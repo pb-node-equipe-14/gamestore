@@ -2,7 +2,7 @@
 
 <h2 align ='start'> API </h2>
 
-URL heroku
+https://gamestore-api-2022.herokuapp.com
 
 #
 
@@ -574,11 +574,6 @@ Caso o token esteja errado
 }
 ```
 
-
-
-
-
-
 <h1 align ='center'> Criar Games </h1>
 
 `POST /games`
@@ -649,7 +644,6 @@ Caso o usuário não seja administrador
 }
 ```
 
-
 #
 
 <h1 align ='center'> Listar todos os  Games </h1>
@@ -661,14 +655,16 @@ Caso o usuário não seja administrador
 Rotas que necessitam de autenticação devem ser informado no cabeçalho da requisição o campo "Authorization", dessa forma:
 
 > Authorization: Bearer {token}
+
 #
+
 Essa rota necessita de Administrador
+
 #
 
 ### Essa rota é responsável por listar todos os Games e lista todos os jogos tanto os que estao ativos quanto os que não estão
 
 #
-
 
 Caso dê tudo certo, a resposta será assim:
 
@@ -712,15 +708,14 @@ Caso não passe o token no campo "Authorization"
   "message": "Invalid token"
 }
 ```
+
 ` FORMATO DA RESPOSTA - STATUS 403 FORBIDDEN`
+
 ```json
 {
-	"message": "User is not admin"
+  "message": "User is not admin"
 }
 ```
-
-
-
 
 <h1 align ='center'> Listar um Game </h1>
 
@@ -733,8 +728,6 @@ Caso não passe o token no campo "Authorization"
 Rotas que necessitam de autenticação devem ser informado no cabeçalho da requisição o campo "Authorization", dessa forma:
 
 > Authorization: Bearer {token}
-
-
 
 #
 
@@ -769,6 +762,7 @@ Caso não passe o token no campo "Authorization"
   "message": "Invalid token"
 }
 ```
+
 Caso o token esteja errado
 
 ` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
