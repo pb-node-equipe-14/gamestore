@@ -7,5 +7,5 @@ export interface IGamesrequest {
   description: string;
   developer: string;
   image: string;
-  id_categoryId: string;
+  categoryId: string;
 }

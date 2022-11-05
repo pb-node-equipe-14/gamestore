@@ -15,7 +15,7 @@ const createGamesServices = async ({
   developer,
   description,
   image,
-  id_categoryId,
+  categoryId,
 }: IGamesrequest) => {
   const gamesRepository = AppDataSource.getRepository(Game);
   const games = await gamesRepository.find();
@@ -28,11 +28,11 @@ const createGamesServices = async ({
 
   const categoryRepository = AppDataSource.getRepository(Category);
 
-  const verifycategoryAlreadyExist = await categoryRepository.findOneBy({
-    id: id_categoryId,
+  const category = await categoryRepository.findOneBy({
+    id: categoryId,
   });
 
-  if (!verifycategoryAlreadyExist) {
+  if (!category) {
     throw new AppError('category not found!');
   }
 
@@ -44,7 +44,7 @@ const createGamesServices = async ({
     developer,
     description,
     image,
-    id_categoryId: verifycategoryAlreadyExist,
+    category,
   });
 
   return newGame;
