@@ -1,9 +1,9 @@
 import AppDataSource from '../../data-source';
 import { Favorite } from '../../entities/favorite.entity';
 
-const listFavoritesService = (): Promise<Favorite[]> => {
+const listFavoritesService = async () => {
   const favoriteRepository = AppDataSource.getRepository(Favorite);
-  const favorites = favoriteRepository.find();
+  const favorites = await favoriteRepository.find();
 
   return favorites;
 };

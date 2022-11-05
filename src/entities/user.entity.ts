@@ -47,8 +47,9 @@ class User {
   @OneToMany(() => PaymentInfo, payment_infos => payment_infos.user)
   paymentInfo: PaymentInfo[];
 
-  @OneToOne(() => Favorite, {eager: true})
+  @OneToOne(() => Favorite, { eager: true })
   @JoinColumn()
+  @Exclude()
   favorite: Favorite;
 
   @OneToOne(() => Cart, { eager: true })
@@ -56,10 +57,9 @@ class User {
   @Exclude()
   cart: Cart;
 
-  @OneToMany((type) => Purchased, (purchased) => purchased.user, { eager: true })
+  @OneToMany(type => Purchased, purchased => purchased.user, { eager: true })
   @JoinColumn()
   @Exclude()
   purchased: Purchased[];
-
 }
 export { User };

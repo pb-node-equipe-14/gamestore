@@ -14,7 +14,7 @@ class Favorite {
   id: string;
   @CreateDateColumn()
   data_insert: Date;
-  @OneToMany(()=>Game, game => game.favorite)
-  games:Game[]
+  @OneToMany(() => Game, game => game.favorite, { eager: true })
+  games: Game[];
 }
 export { Favorite };

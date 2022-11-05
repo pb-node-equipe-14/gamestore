@@ -1,4 +1,5 @@
 import AppDataSource from '../../data-source';
+import { Purchased } from '../../entities/purchased.entity';
 import { User } from '../../entities/user.entity';
 
 const listPurchasedService = async (user_id: string) => {
@@ -15,4 +16,4 @@ const listPurchasedService = async (user_id: string) => {
 
   return purchasedProperties?.purchased;
 };
-export { listPurchasedService };
+export default listPurchasedService;
