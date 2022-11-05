@@ -987,3 +987,207 @@ Caso o game já tenha sido exclúido
   "message": "Game Already excluded"
 }
 ```
+
+<h2 align ='center'> Criação de payment </h2>
+
+Nessa aplicação o usuário pode criar a forma de pagamento da aplicação, necessário estar cadastrado na plataforma, nesta API para realizar o criação é necessário seguir o padrão:
+
+`POST /payment_infos - FORMATO DA REQUISIÇÃO`
+
+```json
+{
+  "name": "kelton wlysses",
+  "dueDate": ""2023-01-01,
+  "code": "222",
+  "number": "123456",
+}
+```
+1. O campo - "name": Pode receber o nome da pessoa.
+2. O campo - "dueDate": Pode receber a data do vencimento.
+3. O campo - "code": Pode receber o código de segurança.
+4. O campo - "number": Pode receber o número do cartão em string.
+5. O campo - "id": O id é gerado automaticamente e não deve ser fornecido.
+
+Caso dê tudo certo, a resposta será assim:
+
+`POST /payment_infos - FORMATO DA RESPOSTA - STATUS 201`
+
+```json
+{
+  "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
+  "name": "kelton wlysses",
+  "dueDate": ""2023-01-01,
+  "code": "222",
+  "number": "123456",
+}
+```
+_____
+
+<h2 align ='center'> Possíveis erros </h2>
+
+Caso você acabe errando e mandando o campo "name" errado, a resposta de erro será assim:
+No exemplo a requisição foi feita faltando o campo "name".
+
+`POST /payment_infos - `
+` FORMATO DA RESPOSTA - STATUS 400`
+
+```json
+{
+  "status": "error",
+  "message": ["name is required"]
+}
+```
+Caso você acabe errando e mandando o campo "code" diferente de 3 caracteres, a resposta de erro será assim: No exemplo a requisição foi feita com 2 caracteres o campo "code".
+
+`POST /payment_infos - `
+` FORMATO DA RESPOSTA - STATUS 400`
+
+```json
+{
+  "status": "error",
+  "message": [ "Code must be at least 3 characters long! "]
+}
+```
+Caso você acabe errando e mandando um usuário existente, a resposta de erro será assim: No exemplo a requisição foi feita com um usuário já cadastrado.
+
+`POST /payment_infos - `
+` FORMATO DA RESPOSTA - STATUS 400`
+```json
+{
+  "status": "error",
+  "message": [ "Payment already exists! "]
+}
+```
+​
+​
+___
+​
+​
+ ### DELETE - `/payment_infos/<id>`
+- A rota deve realizar um delete do payment.
+- a rota pode ser acessada apenas por administradores.
+
+Caso dê tudo certo, a resposta será assim:
+
+`POST /users - FORMATO DA RESPOSTA - STATUS 204`
+
+```json
+{
+   message: "User deleted with sucess!"
+}
+```
+_____
+
+
+<h2 align ='center'> Possíveis erros </h2>
+
+Caso acabe não encontrando nenhum payment, a resposta de erro será assim:
+
+
+`DELETE /payment_infoS - `
+` FORMATO DA RESPOSTA - STATUS 400`
+
+```json
+{
+  "status": "error",
+  "message": "Payment not found"
+}
+```
+​
+​
+___
+ ### GET - `/payment_infos`
+- A rota deve realizar um get do payment.
+- a rota pode ser acessada apenas por usuários autenticados
+
+Caso dê tudo certo, a resposta será assim:
+
+`GET /payment_infos - FORMATO DA RESPOSTA - STATUS 200`
+
+
+```json
+[
+  {
+    "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
+    "name": "kelton wlysses",
+    "dueDate": ""2023-01-01,
+    "code": "222",
+    "number": "123456",
+  },
+  {
+    "id": "e110dbb6-beb9-4682-ab63-2c12a570d66b",
+    "name": "jelton wlysses",
+    "dueDate": ""2023-01-01,
+    "code": "222",
+    "number": "123456",
+  },
+  {
+    "id": "d110dbb6-beb9-4682-ab63-2c12a570d66b",
+    "name": "Belton wlysses",
+    "dueDate": ""2023-01-01,
+    "code": "222",
+    "number": "123456",
+  }
+]
+```
+<h2 align ='center'> Possíveis erros </h2>
+
+Caso acabe não encontrando nenhum payment, a resposta de erro será assim:
+
+
+`GET /payment_infos - `
+` FORMATO DA RESPOSTA - STATUS 400`
+
+```json
+{
+  "status": "error",
+  "message": "Payment not found"
+}
+```
+
+___
+ ### GET - `/payment_infos/:id`
+- A rota deve realizar um get do payment e retornar os pagamentos do id informado.
+- a rota pode ser acessada apenas por usuários autenticados
+
+Caso dê tudo certo, a resposta será assim:
+
+`GET /payment_infos/:id - FORMATO DA RESPOSTA - STATUS 200`
+
+
+```json
+[
+  {
+    "id": "c110dbb6-beb9-4682-ab63-2c12a570d66b",
+    "name": "kelton wlysses",
+    "dueDate": ""2023-01-01,
+    "code": "222",
+    "number": "123456",
+  },
+  "user": {
+			"id": "aead4fb9-2f91-426e-9683-d0e9334b2e4c",
+			"name": "kelton wylsses",
+			"age": 24,
+			"email": "kelton@kenzie.com",
+			"isAdm": false,
+			"isActive": true,
+			"createdAt": "2023-11-04T15:04:23.492Z",
+			"updatedAt": "2023-11-04T15:04:23.492Z"
+		}
+
+]
+```
+<h2 align ='center'> Possíveis erros </h2>
+
+Caso acabe não encontrando nenhum payment, a resposta de erro será assim:
+
+
+`GET /payment_infos - `
+` FORMATO DA RESPOSTA - STATUS 400`
+
+```json
+{
+  "status": "error",
+  "message": "Payment not found"
+}
+```
