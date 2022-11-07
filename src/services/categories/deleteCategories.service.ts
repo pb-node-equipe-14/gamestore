@@ -14,4 +14,4 @@ const deleteCategoriesService = async (id: string) => {
   await categoriesRepository.delete(category);
 };
 
-export default deleteCategoriesService;
+export { deleteCategoriesService };

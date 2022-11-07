@@ -47,4 +47,4 @@ const createPurchasedService = async (user_id: string) => {
     return newPurchased;
   }
 };
-export default createPurchasedService;
+export { createPurchasedService };

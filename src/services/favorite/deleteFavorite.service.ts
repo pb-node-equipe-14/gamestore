@@ -33,4 +33,4 @@ const deleteFavoriteService = async (user_id: string, game_id: string) => {
     await favoriteRepository.save(favorite);
   }
 };
-export default deleteFavoriteService;
+export { deleteFavoriteService };

@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import { SchemaOf } from 'yup';
 import { IUserRequest } from '../interfaces/users';
 
-export const userCreateSchema: SchemaOf<IUserRequest> = yup.object().shape({
+const userCreateSchema: SchemaOf<IUserRequest> = yup.object().shape({
   name: yup.string().required(),
   email: yup.string().email().required(),
   age: yup.number().positive().required(),
@@ -11,7 +11,7 @@ export const userCreateSchema: SchemaOf<IUserRequest> = yup.object().shape({
   isAdm: yup.boolean().required(),
 });
 
-export const validateUserCreate =
+const validateUserCreate =
   (schema: SchemaOf<IUserRequest>) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -35,3 +35,5 @@ export const validateUserCreate =
       next(err);
     }
   };
+
+export { userCreateSchema, validateUserCreate };

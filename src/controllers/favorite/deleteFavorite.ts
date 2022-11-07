@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import deleteFavoriteService from '../../services/favorite/deleteFavorite.service';
+import { deleteFavoriteService } from '../../services/favorite/deleteFavorite.service';
 
 const deleteFavoriteController = async (req: Request, res: Response) => {
   const user_id = req.user.id;
@@ -10,4 +10,4 @@ const deleteFavoriteController = async (req: Request, res: Response) => {
   return res.sendStatus(204);
 };
 
-export default deleteFavoriteController;
+export { deleteFavoriteController };

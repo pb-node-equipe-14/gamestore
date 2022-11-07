@@ -1,4 +1,4 @@
-export interface IUserRequest {
+interface IUserRequest {
   name: string;
   email: string;
   password: string;
@@ -6,7 +6,7 @@ export interface IUserRequest {
   age: number;
 }
 
-export interface IUserRequestTest {
+interface IUserRequestTest {
   name: string;
   email: string;
   password?: string;
@@ -14,7 +14,7 @@ export interface IUserRequestTest {
   age: number;
 }
 
-export interface IUser {
+interface IUser {
   id: string;
   name: string;
   email: string;
@@ -23,14 +23,16 @@ export interface IUser {
   updatedAt: Date;
 }
 
-export interface IUserLogin {
+interface IUserLogin {
   email: string;
   password: string;
 }
 
-export interface IUserUpdate {
+interface IUserUpdate {
   name?: string;
   email?: string;
   password?: string;
   age?: number;
 }
+
+export { IUserRequest, IUserRequestTest, IUser, IUserLogin, IUserUpdate };

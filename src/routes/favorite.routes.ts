@@ -1,19 +1,21 @@
 import { Router } from 'express';
-import createFavoriteController from '../controllers/favorite/createFavorite.controller';
-import deleteFavoriteController from '../controllers/favorite/deleteFavorite';
-import listFavoriteController from '../controllers/favorite/listFavorite.controller';
+import { createFavoriteController } from '../controllers/favorite/createFavorite.controller';
+import { deleteFavoriteController } from '../controllers/favorite/deleteFavorite';
+import { listFavoriteController } from '../controllers/favorite/listFavorite.controller';
 import { verifyAuthUserMiddleware } from '../middlewares/verifyAuthUser.middleware';
 
-const routes = Router();
+const favoriteRoutes = Router();
 
-export const favoriteRoutes = () => {
-  routes.post('', verifyAuthUserMiddleware, createFavoriteController);
-  routes.get('', verifyAuthUserMiddleware, listFavoriteController);
-  routes.delete(
+const favoritesRoutes = () => {
+  favoriteRoutes.post('', verifyAuthUserMiddleware, createFavoriteController);
+  favoriteRoutes.get('', verifyAuthUserMiddleware, listFavoriteController);
+  favoriteRoutes.delete(
     '/:game_id',
     verifyAuthUserMiddleware,
     deleteFavoriteController,
   );
 
-  return routes;
+  return favoriteRoutes;
 };
+
+export { favoritesRoutes };

@@ -50,4 +50,4 @@ const createFavoriteService = async (
   }
 };
 
-export default createFavoriteService;
+export { createFavoriteService };

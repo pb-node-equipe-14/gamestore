@@ -16,4 +16,4 @@ const listFavoritesService = async (id: string) => {
 
   return favoriteProperties?.favorite;
 };
-export default listFavoritesService;
+export { listFavoritesService };

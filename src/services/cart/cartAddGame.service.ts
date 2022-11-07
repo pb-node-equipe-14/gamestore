@@ -30,7 +30,7 @@ const cartAddGameService = async (user_id: string, game_id: string) => {
     throw new AppError('Game not found', 404);
   }
 
-  if(user!.age < gameToAdd.age ) {
+  if (user!.age < gameToAdd.age) {
     throw new AppError('The game is not compatible with your age', 400);
   }
 
@@ -47,4 +47,4 @@ const cartAddGameService = async (user_id: string, game_id: string) => {
     return cart;
   }
 };
-export default cartAddGameService;
+export { cartAddGameService };
