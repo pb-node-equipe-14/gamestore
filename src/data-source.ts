@@ -9,7 +9,18 @@ const AppDataSource = new DataSource(
         synchronize: true,
         entities: ['src/entities/*.ts'],
       }
-    : 
+    : {
+        type: 'postgres',
+        host: process.env.HOST,
+        port: 5432,
+        username: process.env.POSTGRES_USER,
+        password: process.env.POSTGRES_PASSWORD,
+        database: process.env.POSTGRES_DB,
+        logging: true,
+        synchronize: false,
+        entities: ['src/entities/*.ts'],
+        migrations: ['src/migrations/*.ts'],
+      } /*
    {
     
         type: 'postgres',
@@ -28,7 +39,7 @@ const AppDataSource = new DataSource(
           process.env.NODE_ENV === 'production'
             ? ['dist/src/migrations/*.js']
             : ['src/migrations/*.ts'],
-      }
+      }*/,
 );
 
 export default AppDataSource;
