@@ -12,8 +12,7 @@ import { Game } from './games.entity';
 class Favorite {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-  @CreateDateColumn()
-  data_insert: Date;
+
   @OneToMany(() => Game, game => game.favorite, { eager: true })
   games: Game[];
 }

@@ -1,10 +1,19 @@
 import AppDataSource from '../../data-source';
 import { Favorite } from '../../entities/favorite.entity';
+import { User } from '../../entities/user.entity';
 
-const listFavoritesService = async () => {
-  const favoriteRepository = AppDataSource.getRepository(Favorite);
-  const favorites = await favoriteRepository.find();
+const listFavoritesService = async (id: string) => {
+  const userRepository = AppDataSource.getRepository(User);
 
-  return favorites;
+  const favoriteProperties = await userRepository.findOne({
+    where: {
+      id: id,
+    },
+    relations: {
+      favorite: true,
+    },
+  });
+
+  return favoriteProperties?.favorite;
 };
 export default listFavoritesService;
