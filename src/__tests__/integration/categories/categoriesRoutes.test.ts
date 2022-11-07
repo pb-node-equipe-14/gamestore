@@ -58,7 +58,6 @@ describe('/categories', () => {
     expect(response.status).toBe(400);
   });
 
-
   test('GET /categories -  Must be able to list categories', async () => {
     await request(app).post('/categories').send(mockedUser);
     const userLoginResponse = await request(app)
@@ -84,10 +83,18 @@ describe('/categories', () => {
       .post('/login')
       .send(mockedUserLogin);
 
-    const response = await request(app)
-      .delete(`/categories/${userLoginResponse.body.id}`)
+    const getId = await request(app)
+      .get('/categories')
       .set('Authorization', `Bearer ${userLoginResponse.body.token}`);
 
-    expect(response.body).toHaveProperty('message');
+      const response = await request(app)
+      .delete(`/categories/${getId.body[0].id}`)
+      .set('Authorization', `Bearer ${userLoginResponse.body.token}`);
+
+    expect(response.status).toBe(204);
   });
 });
+
+
+
+

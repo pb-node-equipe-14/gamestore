@@ -30,6 +30,10 @@ const cartAddGameService = async (user_id: string, game_id: string) => {
     throw new AppError('Game not found', 404);
   }
 
+  if(user!.age < gameToAdd.age ) {
+    throw new AppError('The game is not compatible with your age', 400);
+  }
+
   if (cart && gameToAdd) {
     if (cart.games.filter(game => game.name === gameToAdd.name).length > 0) {
       throw new AppError('Game is already in the cart', 409);

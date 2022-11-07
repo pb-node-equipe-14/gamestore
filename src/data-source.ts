@@ -9,7 +9,9 @@ const AppDataSource = new DataSource(
         synchronize: true,
         entities: ['src/entities/*.ts'],
       }
-    : {
+    : 
+   {
+    
         type: 'postgres',
         url: process.env.DATABASE_URL,
         ssl:
@@ -26,7 +28,7 @@ const AppDataSource = new DataSource(
           process.env.NODE_ENV === 'production'
             ? ['dist/src/migrations/*.js']
             : ['src/migrations/*.ts'],
-      },
+      }
 );
 
 export default AppDataSource;

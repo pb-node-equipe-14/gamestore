@@ -10,7 +10,6 @@ const listGamesActiveServices = async () => {
     },
   });
 
-  console.log(`o valor de allGames é: ${allGames} `);
   return allGames;
 };
 export { listGamesActiveServices };

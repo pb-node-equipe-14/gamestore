@@ -99,10 +99,16 @@ describe('/payment_infos', () => {
     const userLoginResponse = await request(app)
       .post('/login')
       .send(mockedUserLogin);
-    const response = await request(app)
-      .delete(`/payment_infos/${userLoginResponse.body.id}`)
+
+      const getId = await request(app)
+      .get('/payment_infos')
       .set('Authorization', `Bearer ${userLoginResponse.body.token}`);
 
-    expect(response.body).toHaveProperty('message');
+    const response = await request(app)
+      .delete(`/payment_infos/${getId.body[0].id}`)
+      .set('Authorization', `Bearer ${userLoginResponse.body.token}`);
+
+      expect(response.status).toBe(204);
+
   });
 });

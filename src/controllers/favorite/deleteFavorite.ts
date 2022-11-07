@@ -1,12 +1,13 @@
 import { Request, Response } from 'express';
 import deleteFavoriteService from '../../services/favorite/deleteFavorite.service';
 
+const deleteFavoriteController = async (req: Request, res: Response) => {
+  const user_id = req.user.id;
+  const { game_id } = req.params;
 
-const deleteFavoriteController = async (req: Request, res: Response)=>{
-    const {id} = req.params;
-    await deleteFavoriteService(id)
-    return res.status(204).json({ message: "Favorite"})
+  const favoriteDel = await deleteFavoriteService(user_id, game_id);
 
-}
+  return res.sendStatus(204);
+};
 
-export default deleteFavoriteController
+export default deleteFavoriteController;

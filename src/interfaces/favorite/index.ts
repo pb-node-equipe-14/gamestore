@@ -1,3 +1,3 @@
-export interface IFavoriteRequest{
-    id_games:string
+export interface IFavoriteRequest {
+  game_id: string;
 }
