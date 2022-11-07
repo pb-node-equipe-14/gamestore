@@ -770,18 +770,6 @@ Caso o token esteja errado
 
 `GET /games/isActive`
 
-#
-
-## Essa rota necessita de autenticação
-
-Rotas que necessitam de autenticação devem ser informado no cabeçalho da requisição o campo "Authorization", dessa forma:
-
-> Authorization: Bearer {token}
-
-#
-
-### Retorna apenas o game passado pelo id
-
 Caso dê tudo certo, a resposta será assim:
 
 `FORMATO DA RESPOSTA - STATUS 200 OK`
@@ -793,36 +781,12 @@ Caso dê tudo certo, a resposta será assim:
   "price": 23,
   "age": 18,
   "launch": "2020-08-17",
-  "isActive": false,
+  "isActive": true,
   "description": "um jogo sobre espadas",
   "developer": "Bandai CAMPCOM",
   "image": "https://cdn.cloudflare.steamstatic.com/steam/apps/1201240/header.jpg?t=1667210470"
 }
 ```
-
-<h2 align ='center'> Possíveis erros </h2>
-
-Caso não passe o token no campo "Authorization"
-
-` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
-
-```json
-{
-  "message": "Invalid token"
-}
-```
-
-Caso o token esteja errado
-
-` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
-
-```json
-{
-  "message": "Invalid Token"
-}
-```
-
-#
 
 <h2 align ='center'> Atualizar informações de um game </h2>
 
@@ -839,7 +803,6 @@ Rotas que necessitam de autenticação devem ser informado no cabeçalho da requ
 Além disso, essa rota só pode ser acessada por usuários administradores
 
 #
-
 ### Essa rota pode ser atualizado pelo próprio usuário, ou por um usuário administrador. É preciso informar "name", "price", "age", "launch", "developer","description", "image" ou "id" ou para atualizar algum desses campos
 
 ## Alguns campos não podem ser atualizados como: isActive e id
