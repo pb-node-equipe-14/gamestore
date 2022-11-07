@@ -1229,6 +1229,126 @@ Caso o token esteja errado
 
 #
 
+<h2 align ='center'>Listar games favoritados</h2>
+
+`GET /favorite`
+
+#
+
+## Essa rota necessita de autenticação
+
+Rotas que necessitam de autenticação devem ser informado no cabeçalho da requisição o campo "Authorization", dessa forma:
+
+> Authorization: Bearer {token}
+
+#
+
+### Retorna todos os games colocados no carrinho do usuário
+
+Caso dê tudo certo, a resposta será assim:
+
+`FORMATO DA RESPOSTA - STATUS 200 OK`
+
+```json
+{
+  "id": "13797f73-e80e-45d2-bf86-0b614a56e9c4",
+  "games": [
+    {
+      "id": "431926d9-4c92-45ee-8eda-8dd5d0feb65b",
+      "name": "Bleach Brave Souls",
+      "price": 23,
+      "age": 18,
+      "launch": "2020-08-17",
+      "isActive": true,
+      "description": "um jogo sobre espadas",
+      "developer": "Bandai CAMPCOM",
+      "image": "https://cdn.cloudflare.steamstatic.com/steam/apps/1201240/header.jpg?t=1667210470"
+    },
+    {
+      "id": "6c8c6e6c-7b17-4aac-a315-4d0f5b1cf6dd",
+      "name": "Naruto",
+      "price": 23,
+      "age": 34,
+      "launch": "2018-10-22",
+      "isActive": true,
+      "description": "um jogo sobre ninjas ",
+      "developer": "Bandai CAMPCOM",
+      "image": "https://oxentesensei.com.br/wp-content/webp-express/webp-images/uploads/2022/03/curiosidades-Sasuke-Uchiha-capa.jpg.webp"
+    }
+  ]
+}
+```
+
+<h2 align ='center'> Possíveis erros </h2>
+
+Caso não passe o token no campo "Authorization"
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Token not found"
+}
+```
+
+Caso o token esteja errado
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Invalid Token"
+}
+```
+
+<h2 align ='center'> Deletar o game dos favoritos </h2>
+
+`DELETE /favorite/game_id`
+
+#
+
+## Essa rota necessita de autenticação
+
+Rotas que necessitam de autenticação devem ser informado no cabeçalho da requisição o campo "Authorization", dessa forma:
+
+> Authorization: Bearer {token}
+
+#
+
+### Deleta um game através do id do game do favoritos
+
+Caso dê tudo certo, a resposta será assim:
+
+`FORMATO DA RESPOSTA - STATUS 204 NO CONTENT`
+
+```json
+No body returned for response
+```
+
+<h2 align ='center'> Possíveis erros </h2>
+
+Caso não passe o token no campo "Authorization"
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Token not found"
+}
+```
+
+Caso o token esteja errado
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Invalid Token"
+}
+```
+
+#
+
 <h2 align ='center'> Criação de payment </h2>
 
 Nessa aplicação o usuário pode criar a forma de pagamento da aplicação, necessário estar cadastrado na plataforma, nesta API para realizar o criação é necessário seguir o padrão:

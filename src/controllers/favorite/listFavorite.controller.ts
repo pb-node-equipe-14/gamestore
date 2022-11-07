@@ -3,7 +3,8 @@ import listFavoritesService from '../../services/favorite/listFavorites.service'
 import { Request, Response } from 'express';
 
 const listFavoriteController = async (req: Request, res: Response) => {
-  const listFavorite = await listFavoritesService();
+  const id = req.user.id;
+  const listFavorite = await listFavoritesService(id);
 
   return res.json(instanceToPlain(listFavorite));
 };

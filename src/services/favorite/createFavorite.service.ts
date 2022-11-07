@@ -3,25 +3,51 @@ import { IFavoriteRequest } from '../../interfaces/favorite';
 import { Favorite } from '../../entities/favorite.entity';
 import { AppError } from '../../errors/appError';
 import { Game } from '../../entities/games.entity';
+import { User } from '../../entities/user.entity';
 
-const createFavoriteService = async ({
-  id_games,
-}: IFavoriteRequest): Promise<Favorite> => {
+const createFavoriteService = async (
+  { game_id }: IFavoriteRequest,
+  user_id: string,
+) => {
+  const userRepository = AppDataSource.getRepository(User);
   const favoriteRepository = AppDataSource.getRepository(Favorite);
   const gameRepository = AppDataSource.getRepository(Game);
 
-  const gamesFavorite = await gameRepository.find({
+  console.log(game_id);
+
+  const user = await userRepository.findOne({
     where: {
-      id: id_games,
+      id: user_id,
     },
   });
 
-  const favorite = await favoriteRepository.save({
-    data_insert: new Date(),
-    games: gamesFavorite,
+  const favorites = await favoriteRepository.findOne({
+    where: {
+      id: user?.favorite.id,
+    },
   });
 
-  return favorite;
+  const games = await gameRepository.find();
+
+  const gameToAdd = games.find(game => game.id === game_id);
+
+  if (!gameToAdd) {
+    throw new AppError('Game not found', 404);
+  }
+
+  if (favorites && gameToAdd) {
+    if (
+      favorites.games.filter(game => game.name === gameToAdd.name).length > 0
+    ) {
+      throw new AppError('Game is already in favorite', 409);
+    }
+
+    favorites.games = [...favorites.games, gameToAdd];
+
+    await favoriteRepository.save(favorites);
+
+    return favorites;
+  }
 };
 
 export default createFavoriteService;

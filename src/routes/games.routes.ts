@@ -3,6 +3,7 @@ import { createGamesController } from '../controllers/games/createGames.controll
 import deleteGamesController from '../controllers/games/deleteGames.controller';
 import { listAdminAllGamesController } from '../controllers/games/listAdminAllGames.controllers';
 import { listGamesActiveController } from '../controllers/games/listAllGames.controller';
+import { listGamesbyCategoryController } from '../controllers/games/listGamesbyCategory.controller';
 import { listOneGamesControllers } from '../controllers/games/listOneGames.controller';
 import { UpdateGamesControllers } from '../controllers/games/updateGames.controller';
 import {
@@ -29,6 +30,8 @@ export const gamesRoutes = () => {
     verifyUserAdmMiddleware,
     listAdminAllGamesController,
   );
+  routes.get('/:id', verifyAuthUserMiddleware, listGamesbyCategoryController);
+
   routes.patch(
     '/:id',
     verifyAuthUserMiddleware,

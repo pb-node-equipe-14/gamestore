@@ -8,8 +8,13 @@ const categoryRoutes = Router();
 
 export const categoriesRoutes = () => {
   categoryRoutes.post('', verifyAuthUserMiddleware, createCategoriesController);
-  categoryRoutes.get('', verifyAuthUserMiddleware,listCategoriesController);
-  categoryRoutes.delete('/:id', verifyAuthUserMiddleware, deleteCategoriesController);
+  categoryRoutes.get('', verifyAuthUserMiddleware, listCategoriesController);
+
+  categoryRoutes.delete(
+    '/:id',
+    verifyAuthUserMiddleware,
+    deleteCategoriesController,
+  );
 
   return categoryRoutes;
 };

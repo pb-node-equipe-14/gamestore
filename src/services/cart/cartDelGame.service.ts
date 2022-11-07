@@ -15,8 +15,6 @@ const cartDelGameService = async (user_id: string, game_id: string) => {
 
   const cartRepository = AppDataSource.getRepository(Cart);
 
-  console.log(game_id);
-
   const cart = await cartRepository.findOne({
     where: {
       id: user?.cart.id,
