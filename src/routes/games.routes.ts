@@ -30,7 +30,11 @@ export const gamesRoutes = () => {
     verifyUserAdmMiddleware,
     listAdminAllGamesController,
   );
-  routes.get('/:id', verifyAuthUserMiddleware, listGamesbyCategoryController);
+  routes.get(
+    '/category/:id',
+    verifyAuthUserMiddleware,
+    listGamesbyCategoryController,
+  );
 
   routes.patch(
     '/:id',
