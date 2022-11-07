@@ -1,5 +1,6 @@
 import { ICategoryRequest } from '../../interfaces/categories';
 import { IPaymentInfoRequest } from '../../interfaces/paymentInfo/paymentInfo.entity';
+import { IPurchasedRequest } from '../../interfaces/purchased';
 import {
   IUserLogin,
   IUserRequest,
@@ -49,3 +50,9 @@ export const mockedPaymentInfo: IPaymentInfoRequest = {
 export const mockedCategories: ICategoryRequest = {
   name: "Terror"
 }
+
+export const mockedPurchased : IPurchasedRequest = {
+  name: "God of war",
+  description: "This game speak about a God",
+  price: 234.33,
+};
