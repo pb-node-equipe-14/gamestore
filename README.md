@@ -1196,6 +1196,76 @@ Caso o token esteja errado
 
 #
 
+<h2 align ='center'>Favoritar games</h2>
+
+`POST /favorite`
+
+#
+
+## Essa rota necessita de autenticação
+
+Rotas que necessitam de autenticação devem ser informado no cabeçalho da requisição o campo "Authorization", dessa forma:
+
+> Authorization: Bearer {token}
+
+#
+
+### É preciso informar o id do game para conseguir adicionar games ao carrinho
+
+```json
+{
+  "game_id": "431926d9-4c92-45ee-8eda-8dd5d0feb65b"
+}
+```
+
+Caso dê tudo certo, a resposta será assim:
+
+`FORMATO DA RESPOSTA - STATUS 201 CREATED`
+
+```json
+{
+  "data_insert": "2022-11-07T15:07:36.238Z",
+  "id": "64b95a2b-0203-4993-bd1d-ac52037b1af6",
+  "games": [
+    {
+      "id": "431926d9-4c92-45ee-8eda-8dd5d0feb65b",
+      "name": "Bleach Brave Souls",
+      "price": 46,
+      "age": 18,
+      "launch": "2020-08-17",
+      "isActive": true,
+      "description": "um jogo sobre espadas",
+      "developer": "Bandai CAMPCOM",
+      "image": "https://cdn.cloudflare.steamstatic.com/steam/apps/1201240/header.jpg?t=1667210470"
+    }
+  ]
+}
+```
+
+<h2 align ='center'> Possíveis erros </h2>
+
+Caso não passe o token no campo "Authorization"
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Token not found"
+}
+```
+
+Caso o token esteja errado
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Invalid Token"
+}
+```
+
+#
+
 <h2 align ='center'> Criação de payment </h2>
 
 Nessa aplicação o usuário pode criar a forma de pagamento da aplicação, necessário estar cadastrado na plataforma, nesta API para realizar o criação é necessário seguir o padrão:
