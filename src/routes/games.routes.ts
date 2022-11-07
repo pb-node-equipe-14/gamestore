@@ -5,6 +5,10 @@ import { listAdminAllGamesController } from '../controllers/games/listAdminAllGa
 import { listGamesActiveController } from '../controllers/games/listAllGames.controller';
 import { listOneGamesControllers } from '../controllers/games/listOneGames.controller';
 import { UpdateGamesControllers } from '../controllers/games/updateGames.controller';
+import {
+  gameCreateSchema,
+  validateGameCreate,
+} from '../middlewares/validateGameCreate.middleware';
 import { verifyAuthUserMiddleware } from '../middlewares/verifyAuthUser.middleware';
 import { verifyUserAdmMiddleware } from '../middlewares/verifyUserAdm.middleware';
 
@@ -16,29 +20,30 @@ export const gamesRoutes = () => {
     '',
     verifyAuthUserMiddleware,
     verifyUserAdmMiddleware,
+    validateGameCreate(gameCreateSchema),
     createGamesController,
-  ); 
-  routes.get('', verifyAuthUserMiddleware, verifyUserAdmMiddleware, listAdminAllGamesController);
+  );
+  routes.get(
+    '',
+    verifyAuthUserMiddleware,
+    verifyUserAdmMiddleware,
+    listAdminAllGamesController,
+  );
   routes.patch(
     '/:id',
     verifyAuthUserMiddleware,
     verifyUserAdmMiddleware,
     UpdateGamesControllers,
-  ); 
+  );
   routes.delete(
     '/:id',
     verifyAuthUserMiddleware,
     verifyUserAdmMiddleware,
     deleteGamesController,
-  ); 
-
-
-  // rotas não precisam de administrador 
-  routes.get(
-    '/isActive',
-    verifyAuthUserMiddleware,
-    listGamesActiveController,
   );
+
+  // rotas não precisam de administrador
+  routes.get('/isActive', listGamesActiveController);
   routes.get('/:id', verifyAuthUserMiddleware, listOneGamesControllers);
   return routes;
 };
