@@ -21,4 +21,4 @@ const createCategoriesService = async ({
   return newCategory;
 };
 
-export default createCategoriesService;
+export { createCategoriesService };

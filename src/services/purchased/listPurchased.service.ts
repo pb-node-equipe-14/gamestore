@@ -16,4 +16,4 @@ const listPurchasedService = async (user_id: string) => {
 
   return purchasedProperties?.purchased;
 };
-export default listPurchasedService;
+export { listPurchasedService };

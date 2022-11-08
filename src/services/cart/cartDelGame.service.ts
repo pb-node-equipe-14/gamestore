@@ -36,4 +36,4 @@ const cartDelGameService = async (user_id: string, game_id: string) => {
     return;
   }
 };
-export default cartDelGameService;
+export { cartDelGameService };

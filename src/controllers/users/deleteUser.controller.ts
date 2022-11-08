@@ -9,4 +9,4 @@ const deleteUserController = async (req: Request, res: Response) => {
   return res.status(204).json(userDelete);
 };
 
-export default deleteUserController;
+export { deleteUserController };

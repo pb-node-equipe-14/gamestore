@@ -10,20 +10,21 @@ import { Game } from './games.entity';
 import { User } from './user.entity';
 
 @Entity('purchased')
-export class Purchased {
+class Purchased {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @CreateDateColumn()
   aquisitonAt: Date;
 
-  @ManyToOne((type) => User, (user) => user.purchased)
+  @ManyToOne(type => User, user => user.purchased)
   user: User;
-  
-  @ManyToMany((type) => Game, {
+
+  @ManyToMany(type => Game, {
     eager: true,
   })
   @JoinTable()
   games: Game[];
 }
 
+export { Purchased };

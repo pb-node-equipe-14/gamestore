@@ -1,37 +1,41 @@
 import { Router } from 'express';
 import { createUserController } from '../controllers/users/createUser.controller';
-import deleteUserController from '../controllers/users/deleteUser.controller';
+import { deleteUserController } from '../controllers/users/deleteUser.controller';
 import { listAllUsersController } from '../controllers/users/listAllUsers.controller';
 import { listUserController } from '../controllers/users/listUser.controller';
-import updateUserController from '../controllers/users/updateUser.controller';
+import { updateUserController } from '../controllers/users/updateUser.controller';
 import {
   userCreateSchema,
   validateUserCreate,
 } from '../middlewares/validateUserCreate.middleware';
 import { verifyAuthUserMiddleware } from '../middlewares/verifyAuthUser.middleware';
-import verifyFieldUpdatedMiddleware from '../middlewares/verifyFieldUpdate.middleware';
+import { verifyFieldUpdatedMiddleware } from '../middlewares/verifyFieldUpdate.middleware';
 import { verifyUserAdmMiddleware } from '../middlewares/verifyUserAdm.middleware';
 import { verifyOwnerMiddleware } from '../middlewares/verifyUserOwner.middleware';
 
-const routes = Router();
+const userRoutes = Router();
 
-export const userRoutes = () => {
-  routes.post('', validateUserCreate(userCreateSchema), createUserController);
+const usersRoutes = () => {
+  userRoutes.post(
+    '',
+    validateUserCreate(userCreateSchema),
+    createUserController,
+  );
 
-  routes.get(
+  userRoutes.get(
     '',
     verifyAuthUserMiddleware,
     verifyUserAdmMiddleware,
     listAllUsersController,
   );
-  routes.get(
+  userRoutes.get(
     '/:id',
     verifyAuthUserMiddleware,
     verifyOwnerMiddleware,
     listUserController,
   );
 
-  routes.patch(
+  userRoutes.patch(
     '/:id',
     verifyAuthUserMiddleware,
     verifyOwnerMiddleware,
@@ -39,12 +43,14 @@ export const userRoutes = () => {
     updateUserController,
   );
 
-  routes.delete(
+  userRoutes.delete(
     '/:id',
     verifyAuthUserMiddleware,
     verifyOwnerMiddleware,
     deleteUserController,
   );
 
-  return routes;
+  return userRoutes;
 };
+
+export { usersRoutes };

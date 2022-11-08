@@ -21,8 +21,6 @@ const deleteFavoriteService = async (user_id: string, game_id: string) => {
     },
   });
 
-  console.log(game_id);
-
   if (favorite) {
     if (favorite.games.filter(game => game.id === game_id).length === 0) {
       throw new AppError('Game is not in favorite', 404);
@@ -33,4 +31,4 @@ const deleteFavoriteService = async (user_id: string, game_id: string) => {
     await favoriteRepository.save(favorite);
   }
 };
-export default deleteFavoriteService;
+export { deleteFavoriteService };
