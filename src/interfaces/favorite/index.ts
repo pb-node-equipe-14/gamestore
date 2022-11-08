@@ -1,3 +1,5 @@
-export interface IFavoriteRequest {
+interface IFavoriteRequest {
   game_id: string;
 }
+
+export { IFavoriteRequest };

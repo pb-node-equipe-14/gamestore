@@ -1,5 +1,4 @@
-import { Category } from '../category';
-export interface IGamesrequest {
+interface IGamesrequest {
   name: string;
   price: number;
   age: number;
@@ -9,3 +8,5 @@ export interface IGamesrequest {
   image: string;
   categoryId: string;
 }
+
+export { IGamesrequest };

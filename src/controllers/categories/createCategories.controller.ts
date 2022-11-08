@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import createCategoriesService from '../../services/categories/createCategories.service';
+import { createCategoriesService } from '../../services/categories/createCategories.service';
 
 const createCategoriesController = async (req: Request, res: Response) => {
   const categories = req.body;
@@ -9,5 +9,4 @@ const createCategoriesController = async (req: Request, res: Response) => {
   return res.status(201).json(newCategorie);
 };
 
-export default createCategoriesController
-
+export { createCategoriesController };

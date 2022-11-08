@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
-
-import cartDelGameService from '../../services/cart/cartDelGame.service';
+import { cartDelGameService } from '../../services/cart/cartDelGame.service';
 
 const cartDelGameController = async (req: Request, res: Response) => {
   const user_id = req.user.id;
@@ -10,4 +9,4 @@ const cartDelGameController = async (req: Request, res: Response) => {
 
   return res.sendStatus(204);
 };
-export default cartDelGameController;
+export { cartDelGameController };

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import listPurchasedService from '../../services/purchased/listPurchased.service';
+import { listPurchasedService } from '../../services/purchased/listPurchased.service';
 
 const listPurchasedController = async (req: Request, res: Response) => {
   const user_id = req.user.id;
@@ -7,4 +7,4 @@ const listPurchasedController = async (req: Request, res: Response) => {
 
   return res.json(purchasedList);
 };
-export default listPurchasedController;
+export { listPurchasedController };

@@ -1,3 +1,5 @@
-export const fixedFloat = (value: number) => {
+const fixedFloat = (value: number) => {
   return Number.parseFloat(value.toFixed(2));
 };
+
+export { fixedFloat };

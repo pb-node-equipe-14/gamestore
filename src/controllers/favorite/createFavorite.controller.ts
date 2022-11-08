@@ -1,6 +1,6 @@
 import { instanceToInstance } from 'class-transformer';
 import { Request, Response } from 'express';
-import createFavoriteService from '../../services/favorite/createFavorite.service';
+import { createFavoriteService } from '../../services/favorite/createFavorite.service';
 
 const createFavoriteController = async (req: Request, res: Response) => {
   const { game_id } = req.body;
@@ -10,4 +10,4 @@ const createFavoriteController = async (req: Request, res: Response) => {
 
   return res.status(200).json(instanceToInstance(favorite));
 };
-export default createFavoriteController;
+export { createFavoriteController };

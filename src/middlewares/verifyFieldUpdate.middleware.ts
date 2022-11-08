@@ -19,4 +19,4 @@ const verifyFieldUpdatedMiddleware = (
   next();
 };
 
-export default verifyFieldUpdatedMiddleware;
+export { verifyFieldUpdatedMiddleware };

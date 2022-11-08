@@ -3,8 +3,10 @@ import { createSessionController } from '../controllers/sessions/createSession.c
 
 const routes = Router();
 
-export const sessionRoutes = () => {
+const sessionRoutes = () => {
   routes.post('', createSessionController);
 
   return routes;
 };
+
+export { sessionRoutes };

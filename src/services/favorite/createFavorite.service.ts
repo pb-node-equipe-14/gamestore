@@ -13,8 +13,6 @@ const createFavoriteService = async (
   const favoriteRepository = AppDataSource.getRepository(Favorite);
   const gameRepository = AppDataSource.getRepository(Game);
 
-  console.log(game_id);
-
   const user = await userRepository.findOne({
     where: {
       id: user_id,
@@ -50,4 +48,4 @@ const createFavoriteService = async (
   }
 };
 
-export default createFavoriteService;
+export { createFavoriteService };

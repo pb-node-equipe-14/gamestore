@@ -15,4 +15,4 @@ const cartListGameService = async (id: string) => {
 
   return cartProperties?.cart;
 };
-export default cartListGameService;
+export { cartListGameService };
