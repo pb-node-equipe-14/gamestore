@@ -1,4 +1,5 @@
 import { ICategoryRequest } from '../../interfaces/categories';
+import { IFavoriteRequest } from '../../interfaces/favorite';
 import { IGamesrequest } from '../../interfaces/games';
 import { IPaymentInfoRequest } from '../../interfaces/paymentInfo/paymentInfo.entity';
 import { IPurchasedRequest } from '../../interfaces/purchased';
@@ -69,3 +70,6 @@ export const mockedGames: IGamesrequest = {
     'https://cdn.cloudflare.steamstatic.com/steam/apps/1201240/header.jpg?t=1667210470',
   categoryId: '',
 };
+export const mockedFavorite: IFavoriteRequest = {
+  game_id : ''
+}
