@@ -70,7 +70,7 @@ describe('/cart', () => {
     expect(response.status).toBe(201);
   });
 
-  test('POST /cart - should not be able to create property without authentication', async () => {
+  test('POST /cart - should not be able to post games in cart without authentication', async () => {
     const userLoginResponse = await request(app)
       .post('/login')
       .send(mockedAdminLogin);
@@ -163,7 +163,7 @@ describe('/cart', () => {
     expect(response.status).toBe(200);
   });
 
-  test('GET /cart - should not be able to create property without authentication  ', async () => {
+  test('GET /cart - should not be able to list a cart without authentication  ', async () => {
     const response = await request(app).get('/cart');
 
     expect(response.body).toHaveProperty('message');
