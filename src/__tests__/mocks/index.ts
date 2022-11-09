@@ -1,4 +1,5 @@
 import { ICategoryRequest } from '../../interfaces/categories';
+import { IFavoriteRequest } from '../../interfaces/favorite';
 import { IGamesrequest } from '../../interfaces/games';
 import { IPaymentInfoRequest } from '../../interfaces/paymentInfo/paymentInfo.entity';
 import { IPurchasedRequest } from '../../interfaces/purchased';
@@ -102,3 +103,7 @@ export const mockedGames2: IGamesrequest = {
 export const mockedCart = {
   game_id: '',
 };
+=======
+export const mockedFavorite: IFavoriteRequest = {
+  game_id : ''
+}
