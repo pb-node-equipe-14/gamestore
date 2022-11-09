@@ -788,6 +788,53 @@ Caso dê tudo certo, a resposta será assim:
 }
 ```
 
+#
+
+<h2 align ='center'> Listar Games pela categoria </h2>
+
+`GET /games/category/category:id`
+
+#
+
+### Retorna todos os games de acordo com a categoria passada pelo category_id
+
+Caso dê tudo certo, a resposta será assim:
+
+`FORMATO DA RESPOSTA - STATUS 200 OK`
+
+```
+{
+	"id": "68cbcce6-ece9-46db-979a-1d143443ad79",
+	"name": "Aventura",
+	"games": [
+    {
+      "id": "72ccd194-4ac5-4f96-bf8f-747349849749",
+      "name": "Bleach",
+      "price": 23,
+      "age": 34,
+      "launch": "2007-09-27",
+      "isActive": true,
+      "description": "Na série Blade Battlers, o jogador assume o controle de um dos muitos personagens     originais do mangá. Como a maioria dos outros jogos de luta a idéia é combater a personagem adversário, ou permanecer em batalha no modo freefor-all, até que sua saúde esteja totalmente esgotada",
+      "developer": "Racjin",
+      "image": "https://tcrf.net/images/4/4e/Bleach_Blade_Battlers_2_-_Title.png"
+    },
+		{
+			"id": "d0696725-bdc6-4354-a59a-bf0341820530",
+			"name": "Bleach Brave Souls",
+			"price": 55.99,
+			"age": 18,
+			"launch": "2020-08-17",
+			"isActive": true,
+			"description": "um jogo sobre espadas",
+			"developer": "Bandai CAMPCOM",
+			"image": "https://cdn.cloudflare.steamstatic.com/steam/apps/1201240/header.jpg?t=1667210470"
+		}
+	]
+}
+```
+
+#
+
 <h2 align ='center'> Atualizar informações de um game </h2>
 
 `PATCH /games/:id`
@@ -803,6 +850,7 @@ Rotas que necessitam de autenticação devem ser informado no cabeçalho da requ
 Além disso, essa rota só pode ser acessada por usuários administradores
 
 #
+
 ### Essa rota pode ser atualizado pelo próprio usuário, ou por um usuário administrador. É preciso informar "name", "price", "age", "launch", "developer","description", "image" ou "id" ou para atualizar algum desses campos
 
 ## Alguns campos não podem ser atualizados como: isActive e id

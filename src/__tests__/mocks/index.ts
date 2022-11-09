@@ -32,6 +32,14 @@ export const mockedAdmin: IUserRequest = {
   password: '123',
 };
 
+export const mockedUser17: IUserRequest = {
+  name: 'User',
+  email: 'user3@mail.com',
+  age: 17,
+  isAdm: true,
+  password: '123',
+};
+
 export const mockedUserLogin: IUserLogin = {
   email: 'user@mail.com',
   password: '123',
@@ -39,6 +47,11 @@ export const mockedUserLogin: IUserLogin = {
 
 export const mockedAdminLogin: IUserLogin = {
   email: 'user2@mail.com',
+  password: '123',
+};
+
+export const mockedUser17Login: IUserLogin = {
+  email: 'user3@mail.com',
   password: '123',
 };
 
@@ -51,6 +64,10 @@ export const mockedPaymentInfo: IPaymentInfoRequest = {
 
 export const mockedCategories: ICategoryRequest = {
   name: 'Terror',
+};
+
+export const mockedCategories2: ICategoryRequest = {
+  name: 'Aventura',
 };
 
 export const mockedPurchased: IPurchasedRequest = {
@@ -70,6 +87,23 @@ export const mockedGames: IGamesrequest = {
     'https://cdn.cloudflare.steamstatic.com/steam/apps/1201240/header.jpg?t=1667210470',
   categoryId: '',
 };
+
+export const mockedGames2: IGamesrequest = {
+  name: 'bleach 2',
+  price: 23,
+  age: 18,
+  launch: '17/08/2020',
+  description: 'um jogo sobre piratas',
+  developer: 'Bandai CAMPCOM',
+  image:
+    'https://cdn.cloudflare.steamstatic.com/steam/apps/1201240/header.jpg?t=1667210470',
+  categoryId: '',
+};
+
+export const mockedCart = {
+  game_id: '',
+};
+=======
 export const mockedFavorite: IFavoriteRequest = {
   game_id : ''
 }
