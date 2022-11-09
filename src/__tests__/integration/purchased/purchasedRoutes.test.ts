@@ -55,7 +55,19 @@ describe('/purchased', () => {
       .post('/purchased')
       .set('Authorization', `Bearer ${userLoginResponse.body.token}`);
 
-    expect(response.body).toHaveLength(1);
+    expect(response.body[0]).toHaveProperty('id');
+    expect(response.body[0]).toHaveProperty('aquisitonAt');
+    expect(response.body[0]).toHaveProperty('games');
+    expect(response.body[0].games[0]).toHaveProperty('id');
+    expect(response.body[0].games[0]).toHaveProperty('name');
+    expect(response.body[0].games[0]).toHaveProperty('price');
+    expect(response.body[0].games[0]).toHaveProperty('age');
+    expect(response.body[0].games[0]).toHaveProperty('launch');
+    expect(response.body[0].games[0]).toHaveProperty('isActive');
+    expect(response.body[0].games[0]).toHaveProperty('description');
+    expect(response.body[0].games[0]).toHaveProperty('developer');
+    expect(response.body[0].games[0]).toHaveProperty('image');
+
     expect(response.status).toBe(201);
   });
 
@@ -76,7 +88,18 @@ describe('/purchased', () => {
       .get('/purchased')
       .set('Authorization', `Bearer ${userLoginResponse.body.token}`);
 
-    expect(response.body).toHaveLength(1);
+    expect(response.body[0]).toHaveProperty('id');
+    expect(response.body[0]).toHaveProperty('aquisitonAt');
+    expect(response.body[0]).toHaveProperty('games');
+    expect(response.body[0].games[0]).toHaveProperty('id');
+    expect(response.body[0].games[0]).toHaveProperty('name');
+    expect(response.body[0].games[0]).toHaveProperty('price');
+    expect(response.body[0].games[0]).toHaveProperty('age');
+    expect(response.body[0].games[0]).toHaveProperty('launch');
+    expect(response.body[0].games[0]).toHaveProperty('isActive');
+    expect(response.body[0].games[0]).toHaveProperty('description');
+    expect(response.body[0].games[0]).toHaveProperty('developer');
+    expect(response.body[0].games[0]).toHaveProperty('image');
     expect(response.status).toBe(200);
   });
 
