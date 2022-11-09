@@ -103,7 +103,7 @@ export const mockedGames2: IGamesrequest = {
 export const mockedCart = {
   game_id: '',
 };
-=======
+
 export const mockedFavorite: IFavoriteRequest = {
-  game_id : ''
-}
+  game_id: '',
+};
