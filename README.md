@@ -256,6 +256,14 @@ Caso o token esteja errado
 }
 ```
 
+` FORMATO DA RESPOSTA - STATUS 404 NOT FOUND`
+
+```json
+{
+  "message": "User not found"
+}
+```
+
 #
 
 <h2 align ='center'> Atualizar informações do usuário </h2>
@@ -324,6 +332,16 @@ Caso o token esteja errado
 }
 ```
 
+Caso o usuário não seja encontrado
+
+` FORMATO DA RESPOSTA - STATUS 404 NOT FOUND`
+
+```json
+{
+  "message": "User not found"
+}
+```
+
 #
 
 <h2 align ='center'> Deletar um usuário </h2>
@@ -369,6 +387,26 @@ Caso o token esteja errado
 ```json
 {
   "message": "Invalid Token"
+}
+```
+
+Caso o usuário não seja encontrado
+
+` FORMATO DA RESPOSTA - STATUS 404 NOT FOUND`
+
+```json
+{
+  "message": "User not found"
+}
+```
+
+Caso o usuário já tenha sido deletado
+
+` FORMATO DA RESPOSTA - STATUS 400 BAD REQUEST`
+
+```json
+{
+  "message": "User Already excluded"
 }
 ```
 
@@ -436,6 +474,14 @@ Caso o token esteja errado
 ```json
 {
   "message": "Invalid Token"
+}
+```
+
+` FORMATO DA RESPOSTA - STATUS 400 BAD REQUEST`
+
+```json
+{
+  "message": "Category already exists"
 }
 ```
 
@@ -512,7 +558,7 @@ Rotas que necessitam de autenticação devem ser informado no cabeçalho da requ
 
 #
 
-### Essa rota deleta uma categoria criada. Só pode ser acessada por usuários administradores
+### Essa rota deleta uma categoria criada
 
 Caso dê tudo certo, a resposta será assim:
 
@@ -551,6 +597,14 @@ Caso o token esteja errado
 ```json
 {
   "message": "Invalid Token"
+}
+```
+
+` FORMATO DA RESPOSTA - STATUS 404 HOT FOUND`
+
+```json
+{
+  "message": "Category not found"
 }
 ```
 
@@ -608,6 +662,16 @@ Caso já tenha sido cadastrado o jogo
 ```json
 {
   "message": "This game already exists"
+}
+```
+
+Caso não encontre o id da categoria
+
+` FORMATO DA RESPOSTA - STATUS 400 BAD REQUEST`
+
+```json
+{
+  "message": "category not found!"
 }
 ```
 
@@ -764,11 +828,23 @@ Caso o token esteja errado
 }
 ```
 
+Caso o id do game não seja encontrado
+
+` FORMATO DA RESPOSTA - STATUS 404 NOT FOUND`
+
+```json
+{
+  "message": "Game not found"
+}
+```
+
 #
 
 <h2 align ='center'> Listar todos os games ativos </h2>
 
 `GET /games/isActive`
+
+#
 
 Caso dê tudo certo, a resposta será assim:
 
@@ -788,6 +864,85 @@ Caso dê tudo certo, a resposta será assim:
 }
 ```
 
+#
+
+<h2 align ='center'> Listar Games pela categoria </h2>
+
+`GET /games/category/category:id`
+
+#
+
+### Retorna todos os games de acordo com a categoria passada pelo category_id
+
+Caso dê tudo certo, a resposta será assim:
+
+`FORMATO DA RESPOSTA - STATUS 200 OK`
+
+```
+{
+	"id": "68cbcce6-ece9-46db-979a-1d143443ad79",
+	"name": "Aventura",
+	"games": [
+    {
+      "id": "72ccd194-4ac5-4f96-bf8f-747349849749",
+      "name": "Bleach",
+      "price": 23,
+      "age": 34,
+      "launch": "2007-09-27",
+      "isActive": true,
+      "description": "Na série Blade Battlers, o jogador assume o controle de um dos muitos personagens     originais do mangá. Como a maioria dos outros jogos de luta a idéia é combater a personagem adversário, ou permanecer em batalha no modo freefor-all, até que sua saúde esteja totalmente esgotada",
+      "developer": "Racjin",
+      "image": "https://tcrf.net/images/4/4e/Bleach_Blade_Battlers_2_-_Title.png"
+    },
+		{
+			"id": "d0696725-bdc6-4354-a59a-bf0341820530",
+			"name": "Bleach Brave Souls",
+			"price": 55.99,
+			"age": 18,
+			"launch": "2020-08-17",
+			"isActive": true,
+			"description": "um jogo sobre espadas",
+			"developer": "Bandai CAMPCOM",
+			"image": "https://cdn.cloudflare.steamstatic.com/steam/apps/1201240/header.jpg?t=1667210470"
+		}
+	]
+}
+```
+
+<h2 align ='center'> Possíveis erros </h2>
+
+Caso não passe o token no campo "Authorization"
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Invalid token"
+}
+```
+
+Caso o token esteja errado
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Invalid Token"
+}
+```
+
+Caso o id do game não seja encontrado
+
+` FORMATO DA RESPOSTA - STATUS 404 NOT FOUND`
+
+```json
+{
+  "message": "Category not found"
+}
+```
+
+#
+
 <h2 align ='center'> Atualizar informações de um game </h2>
 
 `PATCH /games/:id`
@@ -803,6 +958,7 @@ Rotas que necessitam de autenticação devem ser informado no cabeçalho da requ
 Além disso, essa rota só pode ser acessada por usuários administradores
 
 #
+
 ### Essa rota pode ser atualizado pelo próprio usuário, ou por um usuário administrador. É preciso informar "name", "price", "age", "launch", "developer","description", "image" ou "id" ou para atualizar algum desses campos
 
 ## Alguns campos não podem ser atualizados como: isActive e id
@@ -856,7 +1012,7 @@ Caso não passe o token no campo "Authorization"
 
 Caso o id do game esteja errado
 
-` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+` FORMATO DA RESPOSTA - STATUS 404 NOT FOUND`
 
 ```json
 {
@@ -916,7 +1072,7 @@ Caso não passe o token no campo "Authorization"
 
 Caso seja passado o id errado do game
 
-` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+` FORMATO DA RESPOSTA - STATUS 404 NOT FOUND`
 
 ```json
 {
@@ -936,7 +1092,7 @@ Caso o usuário não seja administrador
 
 Caso o game já tenha sido exclúido
 
-` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+` FORMATO DA RESPOSTA - STATUS 400 BAD REQUEST`
 
 ```json
 {
@@ -1031,6 +1187,14 @@ Caso o id de game esteja errado
 ```json
 {
   "message": "Game not found"
+}
+```
+
+` FORMATO DA RESPOSTA - STATUS 400 BAD REQUEST`
+
+```json
+{
+  "message": "The game is not compatible with your age"
 }
 ```
 
@@ -1157,6 +1321,16 @@ Caso o token esteja errado
 }
 ```
 
+Caso o game não esteja no carrinho
+
+` FORMATO DA RESPOSTA - STATUS 404 NOT FOUND`
+
+```json
+{
+  "message": "Game is not in the cart"
+}
+```
+
 #
 
 <h2 align ='center'>Favoritar games</h2>
@@ -1224,6 +1398,26 @@ Caso o token esteja errado
 ```json
 {
   "message": "Invalid Token"
+}
+```
+
+Caso o jogo já esteja nos favoritos
+
+` FORMATO DA RESPOSTA - STATUS 409 CONFLICT`
+
+```json
+{
+  "message": "Game is already in favorite"
+}
+```
+
+Caso o id de game esteja errado
+
+` FORMATO DA RESPOSTA - STATUS 404 NOT FOUND`
+
+```json
+{
+  "message": "Game not found"
 }
 ```
 
@@ -1347,6 +1541,170 @@ Caso o token esteja errado
 }
 ```
 
+Caso o game não esteja nos favoritos
+
+` FORMATO DA RESPOSTA - STATUS 404 NOT FOUND`
+
+```json
+{
+  "message": "Game is not in favorite"
+}
+```
+
+#
+
+<h2 align ='center'> Comprar um jogo </h2>
+
+`POST /purchased`
+
+#
+
+## Essa rota necessita de autenticação
+
+Rotas que necessitam de autenticação devem ser informado no cabeçalho da requisição o campo "Authorization", dessa forma:
+
+> Authorization: Bearer {token}
+
+#
+
+### Essa rota pega os games que estão no carrinho. Todos os games que estão no carrinho são deletados e passados para cá
+
+## Não precisa passar nada no body da requisição
+
+Caso dê tudo certo, a resposta será assim:
+
+`FORMATO DA RESPOSTA - STATUS 201 CREATED`
+
+```json
+{
+  "id": "4aec0af1-5243-4671-b903-21927c3e57c1",
+  "aquisitonAt": "2022-11-08T22:08:38.389Z",
+  "games": [
+    {
+      "id": "431926d9-4c92-45ee-8eda-8dd5d0feb65b",
+      "name": "Bleach Brave Souls",
+      "price": 23,
+      "age": 18,
+      "launch": "2020-08-17",
+      "isActive": true,
+      "description": "um jogo sobre espadas",
+      "developer": "Bandai CAMPCOM",
+      "image": "https://cdn.cloudflare.steamstatic.com/steam/apps/1201240/header.jpg?t=1667210470"
+    },
+    {
+      "id": "6c8c6e6c-7b17-4aac-a315-4d0f5b1cf6dd",
+      "name": "Naruto",
+      "price": 23,
+      "age": 34,
+      "launch": "2018-10-22",
+      "isActive": true,
+      "description": "um jogo sobre ninjas ",
+      "developer": "Bandai CAMPCOM",
+      "image": "https://oxentesensei.com.br/wp-content/webp-express/webp-images/uploads/2022/03/curiosidades-Sasuke-Uchiha-capa.jpg.webp"
+    }
+  ]
+}
+```
+
+<h2 align ='center'> Possíveis erros </h2>
+
+Caso não passe o token no campo "Authorization"
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Token not found"
+}
+```
+
+Caso o token esteja errado
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Invalid Token"
+}
+```
+
+Caso o carrinho esteja vazio
+
+` FORMATO DA RESPOSTA - STATUS 400 BAD REQUEST`
+
+```json
+{
+  "message": "Cart is empty"
+}
+```
+
+#
+
+<h2 align ='center'> Listar games comprados </h2>
+
+`GET /purchased`
+
+#
+
+### Lista todos os games comprados pelo usuário
+
+Caso dê tudo certo, a resposta será assim:
+
+`FORMATO DA RESPOSTA - STATUS 200 OK`
+
+```json
+{
+  "id": "4aec0af1-5243-4671-b903-21927c3e57c1",
+  "aquisitonAt": "2022-11-08T22:08:38.389Z",
+  "games": [
+    {
+      "id": "431926d9-4c92-45ee-8eda-8dd5d0feb65b",
+      "name": "Bleach Brave Souls",
+      "price": 23,
+      "age": 18,
+      "launch": "2020-08-17",
+      "isActive": true,
+      "description": "um jogo sobre espadas",
+      "developer": "Bandai CAMPCOM",
+      "image": "https://cdn.cloudflare.steamstatic.com/steam/apps/1201240/header.jpg?t=1667210470"
+    },
+    {
+      "id": "6c8c6e6c-7b17-4aac-a315-4d0f5b1cf6dd",
+      "name": "Naruto",
+      "price": 23,
+      "age": 34,
+      "launch": "2018-10-22",
+      "isActive": true,
+      "description": "um jogo sobre ninjas ",
+      "developer": "Bandai CAMPCOM",
+      "image": "https://oxentesensei.com.br/wp-content/webp-express/webp-images/uploads/2022/03/curiosidades-Sasuke-Uchiha-capa.jpg.webp"
+    }
+  ]
+}
+```
+
+<h2 align ='center'> Possíveis erros </h2>
+
+Caso não passe o token no campo "Authorization"
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Token not found"
+}
+```
+
+Caso o token esteja errado
+
+` FORMATO DA RESPOSTA - STATUS 401 UNAUTHORIZED`
+
+```json
+{
+  "message": "Invalid Token"
+}
+```
+
 #
 
 <h2 align ='center'> Criação de payment </h2>
@@ -1436,7 +1794,7 @@ Caso você acabe errando e mandando um usuário existente, a resposta de erro se
 ### DELETE - `/payment_infos/<id>`
 
 - A rota deve realizar um delete do payment.
-- a rota pode ser acessada apenas por administradores.
+- a rota pode ser acessada apenas por usuários autenticados
 
 Caso dê tudo certo, a resposta será assim:
 

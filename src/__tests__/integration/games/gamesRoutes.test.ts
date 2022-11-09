@@ -113,21 +113,24 @@ describe('/games', () => {
     }
   });
 
-  test('GET /games/:id -  Must list the game', async () => {
-    const userLoginResponse = await request(app)
+  test('GET/ games/:id - should not be able to list an game without authentication', async () => {
+    const games = await request(app).get('/games');
+    const response = await request(app).get(`/games/${games.body.id}`);
+
+    expect(response.body).toHaveProperty('message');
+    expect(response.status).toBe(401);
+  });
+
+  test('GET/ games/:id - should not be able to list an game with invalid id', async () => {
+    const adminLoginResponse = await request(app)
       .post('/login')
-      .send(mockedUserLogin);
-
-    const gamesID = await request(app)
-      .get('/games')
-      .set('Authorization', `Bearer ${userLoginResponse.body.token}`);
-    console.log(`o valor de games é ${gamesID.body[0].id}`);
-
+      .send(mockedAdminLogin);
     const response = await request(app)
-      .get(`/games/${gamesID.body[0].id}`)
-      .set('Authorization', `Bearer ${userLoginResponse.body.token}`);
+      .get(`/games/b855d86b-d4c9-41cd-ab98-d7fa734c6ce4`)
+      .set('Authorization', `Bearer ${adminLoginResponse.body.token}`);
 
-    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('message');
+    expect(response.status).toBe(404);
   });
 
   test('PATCH /games/:id -  should not be able to update games without authentication', async () => {
@@ -210,21 +213,31 @@ describe('/games', () => {
     expect(response.status).toBe(401);
   });
 
-  test('DELETE /games/:id -  should not be able to delete games not being admin', async () => {
-    const userLoginResponse = await request(app)
-      .post('/login')
-      .send(mockedUserLogin);
+  test('DELETE /games/:id -   Must be able to soft delete game', async () => {
+    await request(app).post('/games').send(mockedAdmin);
 
+    const adminLoginResponse = await request(app)
+      .post('/login')
+      .send(mockedAdminLogin);
     const gamesTobeDeleted = await request(app)
       .get('/games')
-      .set('Authorization', `Bearer ${userLoginResponse.body.token}`);
+      .set('Authorization', `Bearer ${adminLoginResponse.body.token}`);
 
-    const response = await request(app)
-      .delete(`/games/${gamesTobeDeleted.body[0].id}`)
-      .set('Authorization', `Bearer ${userLoginResponse.body.token}`);
+    // faz um get para buscar os games na rota de games
+    const findGames = await request(app)
+      .get('/games')
+      .set('Authorization', `Bearer ${adminLoginResponse.body.token}`);
 
-    expect(response.body).toHaveProperty('message');
-    expect(response.status).toBe(403);
+    // caso esse game seja isActive === true significa que ele está ativo
+    // e pode ser de
+
+    if (findGames.body[0].isActive === true) {
+      const response = await request(app)
+        .delete(`/games/${gamesTobeDeleted.body[0].id}`)
+        .set('Authorization', `Bearer ${adminLoginResponse.body.token}`);
+
+      expect(response.status).toBe(204);
+    }
   });
 
   test("DELETE /games/:id -  shouldn't be able to delete game with isActive = false", async () => {
@@ -256,25 +269,5 @@ describe('/games', () => {
       .set('Authorization', `Bearer ${adminLoginResponse.body.token}`);
     expect(response.status).toBe(404);
     expect(response.body).toHaveProperty('message');
-  });
-
-  test('DELETE /games/:id -   Must be able to soft delete game', async () => {
-    await request(app).post('/games').send(mockedAdmin);
-
-    const adminLoginResponse = await request(app)
-      .post('/login')
-      .send(mockedAdminLogin);
-    const gamesTobeDeleted = await request(app)
-      .get('/games')
-      .set('Authorization', `Bearer ${adminLoginResponse.body.token}`);
-
-    const response = await request(app)
-      .delete(`/games/${gamesTobeDeleted.body[0].id}`)
-      .set('Authorization', `Bearer ${adminLoginResponse.body.token}`);
-    const findGames = await request(app)
-      .get('/games')
-      .set('Authorization', `Bearer ${adminLoginResponse.body.token}`);
-    expect(response.status).toBe(204);
-    expect(findGames.body[0].isActive).toBe(false);
   });
 });
