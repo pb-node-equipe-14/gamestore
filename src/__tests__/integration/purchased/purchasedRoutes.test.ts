@@ -103,6 +103,18 @@ describe('/purchased', () => {
     expect(response.status).toBe(200);
   });
 
+  test('POST /purchased -  Should not be able to purchase with cart is empty', async () => {
+    const userLoginResponse = await request(app)
+      .post('/login')
+      .send(mockedAdminLogin);
+    const response = await request(app)
+      .post('/purchased')
+      .set('Authorization', `Bearer ${userLoginResponse.body.token}`);
+
+    expect(response.body).toHaveProperty('message');
+    expect(response.status).toBe(400);
+  });
+
   test('GET /purchased -  Should not be able to list purchased without authentication', async () => {
     const response = await request(app).get('/purchased');
 

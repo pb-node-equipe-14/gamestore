@@ -119,6 +119,26 @@ describe('/cart', () => {
     expect(response.status).toBe(400);
   });
 
+  test('POST /cart - should not be able to post if game is already in cart  ', async () => {
+    const userLoginResponse = await request(app)
+      .post('/login')
+      .send(mockedAdminLogin);
+
+    const getId = await request(app)
+      .get('/cart')
+      .set('Authorization', `Bearer ${userLoginResponse.body.token}`);
+
+    mockedCart.game_id = getId.body.games[0].id;
+
+    const response = await request(app)
+      .post('/cart')
+      .set('Authorization', `Bearer ${userLoginResponse.body.token}`)
+      .send(mockedCart);
+
+    expect(response.body).toHaveProperty('message');
+    expect(response.status).toBe(409);
+  });
+
   test('GET /cart - Must be able to list a cart  ', async () => {
     const userLoginResponse = await request(app)
       .post('/login')
